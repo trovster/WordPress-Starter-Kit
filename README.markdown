@@ -10,7 +10,7 @@ The wp-config.php has contains configs (local, staging and live) allowing the sa
 
 The child theme includes basic CSS, including [normalize.css](http://necolas.github.com/normalize.css/) and JavaScript, including jQuery
 and [Modernizr](http://www.modernizr.com), jQuery plugins [Cycle](http://jquery.malsup.com/cycle/) and [Fancybox](http://fancyapps.com/fancybox/)
-and a small bespoke framework which loads code based on on `body` classes.
+and a small bespoke framework which loads code based on `body` classes.
 
 ###Custom Post Types###
 
