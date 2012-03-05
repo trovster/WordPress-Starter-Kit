@@ -7,7 +7,7 @@
 <html <?php language_attributes(); ?> class="no-js">
 	<head>
 		<meta charset="<?php bloginfo('charset'); ?>" />
-		
+
                                                                          <!--:-.>
                                                                        .+syyyyssyyo.
                                                                       -yyyyys`.syyys`
@@ -42,15 +42,12 @@
 		<?php $desc = get_bloginfo('description'); ?>
 		<title><?php wp_title(' | ', true, 'right'); ?><?php bloginfo('name'); ?><?php echo (!empty($desc)) ? ' - ' . $desc : ''; ?></title>
 
-		<script type="text/javascript">
-			document.getElementsByTagName('html')[0].className += ' js';
-		</script>
 		<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/modernizr-2.5.2.js"></script>
 
 		<!-- icons -->
 		<link href="<?php echo get_stylesheet_directory_uri(); ?>/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		<link href="<?php echo get_stylesheet_directory_uri(); ?>/apple-touch-icon.png" rel="apple-touch-icon" />
-		
+
 		<?php wp_head(); ?>
 	</head>
 
@@ -65,15 +62,15 @@
 					<?php if(!empty($desc)): ?>
 					<h2><?php echo $desc; ?></h2>
 					<?php endif; ?>
-					
+
 					<?php get_sidebar('social-buttons'); ?>
-					
+
 					<?php get_sidebar('social-icons'); ?>
 				<!-- end of div .inner -->
 				</div>
 			<!-- end of div #header -->
 			</div>
-			
+
 			<div id="nav" class="nav">
 				<div class="inner">
 					<?php get_template_part('nav'); ?>
