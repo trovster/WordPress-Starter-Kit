@@ -7,15 +7,27 @@ add_action('publish_post', 'smart_archives_generate'); // generate archives afte
 add_action('delete_post', 'smart_archives_generate'); // generate archives after a post is deleted
 add_action('trash_post', 'smart_archives_generate'); // generate archives after a post is trashed
 
+function smart_archives_category_enabled() {
+	if(!defined('SURFACE_SMART_CATEGORY')) {
+		define('SURFACE_SMART_CATEGORY', false);
+	}
+	return constant('SURFACE_SMART_CATEGORY');
+}
+
 function smart_archives_filename($id) {
 	$post_type	= get_post_type($id);
 	$post_type	= empty($post_type) ? 'post' : $post_type;
 	$category	= template_taxonomy_single_object('category', $id);
 	
-	$filename	= 'archive-' . $post_type . (!empty($category) && !empty($category->slug) ? '-' . $category->slug : '');
+	$filename	= 'archive-' . $post_type . (smart_archives_category_enabled() && !empty($category) && !empty($category->slug) ? '-' . $category->slug : '');
 	$extension	= '.txt';
+	$path		= WP_CONTENT_DIR . '/archives/';
 	
-	return realpath(dirname(__FILE__) . '/../../archives/') . '/' . $filename . $extension;
+	if(!is_dir($path)) {
+		mkdir($path, 0755);
+	}
+	
+	return $path . $filename . $extension;
 }
 
 // display archives
@@ -63,12 +75,12 @@ function smart_archives_generate($id) {
 			$sql = 'SELECT wp_posts.*
 					FROM ' . $wpdb->posts . '
 						
-					' . (!empty($category) && !empty($category->term_id) ? 'INNER JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)' : '') . '
-					' . (!empty($category) && !empty($category->term_id) ? 'INNER JOIN wp_term_taxonomy ON (wp_term_taxonomy.term_taxonomy_id = wp_term_relationships.term_taxonomy_id)' : '') . '
+					' . (smart_archives_category_enabled() && !empty($category) && !empty($category->term_id) ? 'INNER JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)' : '') . '
+					' . (smart_archives_category_enabled() && !empty($category) && !empty($category->term_id) ? 'INNER JOIN wp_term_taxonomy ON (wp_term_taxonomy.term_taxonomy_id = wp_term_relationships.term_taxonomy_id)' : '') . '
 					
 					WHERE 1 = 1
 						
-					' . (!empty($category) && !empty($category->term_id) ? 'AND (wp_term_taxonomy.term_id IN (' . $category->term_id . '))' : '') . '
+					' . (smart_archives_category_enabled() && !empty($category) && !empty($category->term_id) ? 'AND (wp_term_taxonomy.term_id IN (' . $category->term_id . '))' : '') . '
 						
 					AND wp_posts.post_type = "' . $post_type . '"
 					AND wp_posts.post_status = "publish"
