@@ -8,7 +8,7 @@
 					
 					<p>Footer</p>
 					
-					<div id="footer-by" class="vcard"><a href="http://www.thedesignfrontier.co.uk" class="url"><span class="role">Website design</span> &#38; <span class="role">development</span> by <strong class="fn org">The Design Frontier</strong></a></div>
+					<div id="footer-by" class="vcard"><a href="http://www.who.co.uk" class="url"><span class="role">Website design</span> &#38; <span class="role">development</span> by <strong class="fn org">Organisation Name</strong></a></div>
 					
 				<!-- end of div .inner -->
 				</div>
