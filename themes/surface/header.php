@@ -42,9 +42,15 @@
 		<?php $desc = get_bloginfo('description'); ?>
 		<title><?php wp_title(' | ', true, 'right'); ?><?php bloginfo('name'); ?><?php echo (!empty($desc)) ? ' - ' . $desc : ''; ?></title>
 
-		<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/modernizr-2.5.2.js"></script>
+		<script type="text/javascript" src="<?php  echo get_stylesheet_directory_uri(); ?>/js/modernizr-2.5.2.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      if (typeof Modernizr === 'undefined') {
+          var docElement = document.documentElement;
+          docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, ' js ');
+      };
+    </script>
 
-		<!-- icons -->
+    <!-- icons -->
 		<link href="<?php echo get_stylesheet_directory_uri(); ?>/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		<link href="<?php echo get_stylesheet_directory_uri(); ?>/apple-touch-icon.png" rel="apple-touch-icon" />
 
