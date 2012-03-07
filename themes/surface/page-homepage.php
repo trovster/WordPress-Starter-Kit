@@ -9,9 +9,7 @@
 
 	<?php get_sidebar('slideshow'); ?>
 
-	<?php get_sidebar('cta'); ?>
-
-	<?php get_sidebar('sponsors'); ?>
+	<?php get_sidebar('featured'); ?>
 
 <!-- end of div id #content-primary -->
 </div>

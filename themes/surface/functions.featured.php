@@ -41,7 +41,6 @@ function featured_init() {
 			'title', 'editor', 'thumbnail', 'page-attributes'
 		)
 	));
-	add_image_size('featured', 240, 150, true);
 }
 
 /**

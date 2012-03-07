@@ -45,7 +45,6 @@ function slideshow_init() {
 			'page-attributes'
 		)
 	));
-	add_image_size('slideshow', 1016, 456, true);
 } 
 
 /**

@@ -22,7 +22,9 @@ foreach($functions as $function) {
  * @hook	add_image_size
  */
 add_theme_support('post-thumbnails');
-set_post_thumbnail_size(700, 1000, true); // Normal post thumbnails
+set_post_thumbnail_size(700, 1000, true); // Normal post thumbnails	
+add_image_size('slideshow', 960, 500, true);
+add_image_size('featured', 240, 150, true);
 //add_image_size('gallery-thumbnail', 229, 164, true);
 //add_image_size('full-width', 960, 1000, true);
 
