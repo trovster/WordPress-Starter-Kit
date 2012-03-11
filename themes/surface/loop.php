@@ -1,9 +1,3 @@
-<?php
-$isArchive = true;
-if(is_single()) {
-	$isArchive = false;
-}
-?>
 <?php $i = 1; $total = $wp_query->post_count; while(have_posts()): the_post(); ?>
 	<?php
 	$class		= array();
@@ -12,8 +6,10 @@ if(is_single()) {
 	$class[]	= (has_post_thumbnail()) ? 'has-thumbnail' : '';
 	
 	$type		= get_post_type();
-	$tags		= get_the_term_list(0, $type . '_tag', '', ', ',  '.');
+	$tags		= get_the_term_list(0, 'post_tag', '', ', ',  '');
+	$categories	= get_the_term_list(0, 'category', '', ', ',  '');
 	$class[]	= !empty($tags) ? 'has-tags' : 'no-tags';
+	$class[]	= !empty($categories) ? 'has-categories' : 'no-categories';
 	?>
 	<div id="post-<?php the_ID(); ?>" <?php post_class(array_filter($class)); ?>>
 		
@@ -24,11 +20,13 @@ if(is_single()) {
 		<?php endif; ?>
 			
 		<div class="entry-meta">
-			<div class="fb-like" data-href="<?php the_permalink(); ?>" data-send="false" data-layout="button_count" data-width="90" data-show-faces="true" data-font="arial"></div>
-			<p class="entry-date date">Posted on <?php echo get_the_date(); ?></p>
-			<?php if(!empty($tags)): ?>
-			<p class="entry-tags">Tagged as <?php echo $tags; ?></p>
+			<?php if(!empty($categories)): ?>
+			<p class="entry-categories">Categories: <?php echo $categories; ?></p>
 			<?php endif; ?>
+			<?php if(!empty($tags)): ?>
+			<p class="entry-tags">Tags: <?php echo $tags; ?></p>
+			<?php endif; ?>
+			<p class="entry-date date">Posted on <?php echo get_the_date(); ?></p>
 		<!-- end of div .entry-meta -->
 		</div>
 
