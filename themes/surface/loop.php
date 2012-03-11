@@ -6,8 +6,8 @@
 	$class[]	= (has_post_thumbnail()) ? 'has-thumbnail' : '';
 	
 	$type		= get_post_type();
-	$tags		= get_the_term_list(0, 'post_tag', '', ', ', '.');
-	$categories	= get_the_term_list(0, 'category', '', ', ', '.');
+	$tags		= get_the_term_list(0, 'post_tag', '', ', ',  '');
+	$categories	= get_the_term_list(0, 'category', '', ', ',  '');
 	$class[]	= !empty($tags) ? 'has-tags' : 'no-tags';
 	$class[]	= !empty($categories) ? 'has-categories' : 'no-categories';
 	?>
@@ -26,14 +26,21 @@
 			<?php if(!empty($tags)): ?>
 			<p class="entry-tags">Tags: <?php echo $tags; ?></p>
 			<?php endif; ?>
-			<p class="entry-date date">Posted on: <em class="value"><?php echo get_the_date(); ?></em></p>
+			<p class="entry-date date">Posted on <?php echo get_the_date(); ?></p>
 		<!-- end of div .entry-meta -->
 		</div>
 
+		<?php if(is_single()): ?>
 		<div class="entry-content">
 			<?php the_content(); ?>
 		<!-- end of div .entry-content -->
 		</div>
+		<?php else: ?>
+		<div class="entry-summary">
+			<?php the_excerpt(); ?>
+		<!-- end of div .entry-summary -->
+		</div>	
+		<?php endif; ?>
 
 	<!-- end of div #post-<?php the_ID(); ?> -->
 	</div>
