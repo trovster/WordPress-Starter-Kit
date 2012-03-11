@@ -14,6 +14,13 @@ function smart_archives_category_enabled() {
 	return constant('SURFACE_SMART_CATEGORY');
 }
 
+function smart_archives_exclude_month() {
+	if(!defined('SURFACE_SMART_EXCLUDE_MONETH')) {
+		define('SURFACE_SMART_EXCLUDE_MONETH', false);
+	}
+	return constant('SURFACE_SMART_EXCLUDE_MONETH');
+}
+
 function smart_archives_filename($id) {
 	$post_type	= get_post_type($id);
 	$post_type	= empty($post_type) ? 'post' : $post_type;
@@ -56,7 +63,7 @@ function smart_archives_generate($id) {
 	$category		= template_taxonomy_single_object('category', $id);
 	
     $now			= gmdate('Y-m-d H:i:s', (time() + ((get_option('gmt_offset')) * 3600)));  // get the current GMT date
-	$excludeMonth	= date('n/Y', strtotime($now));
+	$excludeMonth	= smart_archives_exclude_month() ? date('n/Y', strtotime($now)) : false;
     $bogusDate		= '/01/2001'; // used for the strtotime() function below
     
 	$file			= smart_archives_filename($id);
