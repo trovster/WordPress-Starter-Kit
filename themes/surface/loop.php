@@ -26,7 +26,7 @@
 			<?php if(!empty($tags)): ?>
 			<p class="entry-tags">Tags: <?php echo $tags; ?></p>
 			<?php endif; ?>
-			<p class="entry-date date">Posted on <?php echo get_the_date(); ?></p>
+			<p class="entry-date date">Posted on: <em class="value"><?php echo get_the_date(); ?></em></p>
 		<!-- end of div .entry-meta -->
 		</div>
 
