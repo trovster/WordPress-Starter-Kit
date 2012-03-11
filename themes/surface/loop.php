@@ -6,8 +6,8 @@
 	$class[]	= (has_post_thumbnail()) ? 'has-thumbnail' : '';
 	
 	$type		= get_post_type();
-	$tags		= get_the_term_list(0, 'post_tag', '', ', ',  '');
-	$categories	= get_the_term_list(0, 'category', '', ', ',  '');
+	$tags		= get_the_term_list(0, 'post_tag', '', ', ', '.');
+	$categories	= get_the_term_list(0, 'category', '', ', ', '.');
 	$class[]	= !empty($tags) ? 'has-tags' : 'no-tags';
 	$class[]	= !empty($categories) ? 'has-categories' : 'no-categories';
 	?>
