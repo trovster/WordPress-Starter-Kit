@@ -8,8 +8,8 @@
 	$type		= get_post_type();
 	$tags		= get_the_term_list(0, 'post_tag', '', ', ',  '');
 	$categories	= get_the_term_list(0, 'category', '', ', ',  '');
-	$class[]	= !empty($tags) ? 'has-tags' : 'no-tags';
-	$class[]	= !empty($categories) ? 'has-categories' : 'no-categories';
+	$class[]	= !($tags instanceof WP_Error) && !empty($tags) ? 'has-tags' : 'no-tags';
+	$class[]	= !($categories instanceof WP_Error) && !empty($categories) ? 'has-categories' : 'no-categories';
 	?>
 	<div id="post-<?php the_ID(); ?>" <?php post_class(array_filter($class)); ?>>
 		
@@ -20,13 +20,13 @@
 		<?php endif; ?>
 			
 		<div class="entry-meta">
-			<?php if(!empty($categories)): ?>
+			<?php if(!($categories instanceof WP_Error) && !empty($categories)): ?>
 			<p class="entry-categories">Categories: <?php echo $categories; ?></p>
 			<?php endif; ?>
-			<?php if(!empty($tags)): ?>
+			<?php if(!($tags instanceof WP_Error) && !empty($tags)): ?>
 			<p class="entry-tags">Tags: <?php echo $tags; ?></p>
 			<?php endif; ?>
-			<p class="entry-date date">Posted on <?php echo get_the_date(); ?></p>
+			<p class="entry-date date">Posted on <span class="value"><?php echo get_the_date(); ?></span></p>
 		<!-- end of div .entry-meta -->
 		</div>
 
