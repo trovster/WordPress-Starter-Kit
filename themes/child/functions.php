@@ -25,8 +25,6 @@ add_theme_support('post-thumbnails');
 set_post_thumbnail_size(700, 1000, true); // Normal post thumbnails	
 add_image_size('slideshow', 960, 500, true);
 add_image_size('featured', 240, 150, true);
-//add_image_size('gallery-thumbnail', 229, 164, true);
-//add_image_size('full-width', 960, 1000, true);
 
 /**
  * template_is_page
@@ -98,10 +96,12 @@ function site_register_javascript_css() {
 		wp_deregister_script('thickbox');
 		wp_deregister_script('shutter');
 		wp_deregister_script('swfobject');
+		wp_deregister_script('events-manager');
 		wp_deregister_script('jquery-cycle');
 		wp_dequeue_style('NextGEN');
 		wp_dequeue_style('shutter');
 		wp_dequeue_style('thickbox');
+		wp_dequeue_style('events-manager');
 		wp_dequeue_style('ngg-slideshow');
 		
 		$cdn_url = str_replace(constant('WP_SITEURL'), constant('WP_CDN'), get_stylesheet_directory_uri());
