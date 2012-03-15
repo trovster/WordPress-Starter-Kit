@@ -1,10 +1,6 @@
 <?php get_header(); ?>
 
-<?php
-$type = get_post_type();
-$type = empty($type) ? $wp_query->query_vars['post_type'] : $type;
-$type = empty($type) ? 'post' : $type;
-?>
+<?php $type = template_get_post_type(); ?>
 
 <div id="content-primary">
 	
