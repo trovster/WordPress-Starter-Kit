@@ -1,7 +1,7 @@
 /*
 * @updated		03/2012
 * @author		Trevor Morris / Surface
-* @project		Friends of Faye
+* @project		Child Theme
 * --------------------------------------------------------------------------------------------------*/
 
 /**
@@ -108,11 +108,10 @@ a:visited {
 a:hover,
 a:focus,
 a:active {
-	padding: 5px;
 	text-decoration: none;
 }
 
-h1, h2, h3, h4,
+h1, h2, h3, h4, h5,
 p, ul, ol {
 	margin-top: 0;
 }
@@ -142,8 +141,8 @@ br.clear {
 
 
 /* @group Headings */
-h1, h2, h3, h4 {
-	text-transform: uppercase; font-weight: normal; text-align: center;
+h1, h2, h3, h4, h5 {
+	font-weight: normal;
 }
 h1, h2 {
 	margin-bottom: 10px;
@@ -157,6 +156,9 @@ h2 {
 }
 h3 {
 	font-size: 16px;
+}
+h5 {
+	margin-bottom: 10px;
 }
 /* @end */
 
@@ -283,7 +285,7 @@ form .wpcf7-not-valid-tip {
 		#header h1,
 		#header h1 a {
 			width: 176px; height: 145px;
-			margin: 0 auto;
+			margin: 0;
 			background-color: red;
 			cursor: pointer;
 		}
