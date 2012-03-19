@@ -154,7 +154,7 @@ function remove_img_titles($text) {
 	preg_match_all('#title="[^"]*"#U', $text, $result);
 
 	foreach($result[0] as $img_tag) {
-		$text = str_replace($img_tag, '', $text);
+		$text = str_replace($img_tag, 'title=""', $text);
 	}
 
 	return $text;
