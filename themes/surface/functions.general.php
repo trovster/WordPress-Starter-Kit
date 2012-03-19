@@ -778,3 +778,19 @@ function tempalte_ordinal($num) {
 	
 	return $num . '<sup>' . $suffix . '</sup>';
 }
+
+/**
+ * add_first_and_last_to_nav
+ * @param	array $items
+ * @return	array
+ */
+function add_first_and_last_to_nav($items) {
+	$total = count($items);
+	$items[1]->classes[] = 'first-menu-item';
+	$items[1]->classes[] = 'f';
+	$items[$total]->classes[] = 'last-menu-item';
+	$items[$total]->classes[] = 'l';
+	return $items;
+}
+
+add_filter('wp_nav_menu_objects', 'add_first_and_last_to_nav');
