@@ -1,4 +1,3 @@
-<?php /*
 <?php
 $taxonomy	= 'category';
 $options	= array(
@@ -23,7 +22,6 @@ $categories = wp_list_categories($options);
 <!-- end of div #taxonomy-categories -->
 </div>
 <?php endif; ?>
-*/ ?>
 
 <?php
 $taxonomy	= 'post_tag';
