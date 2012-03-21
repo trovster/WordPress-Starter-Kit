@@ -794,3 +794,13 @@ function add_first_and_last_to_nav($items) {
 }
 
 add_filter('wp_nav_menu_objects', 'add_first_and_last_to_nav');
+
+/**
+ * jpeg_quality_callback
+ * @param	array	$arg
+ * @return	int 
+ */
+function jpeg_quality_callback($arg) {
+	return 100;
+}
+add_filter('jpeg_quality', 'jpeg_quality_callback');
