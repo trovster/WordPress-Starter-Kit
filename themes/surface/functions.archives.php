@@ -22,16 +22,18 @@ function smart_archives_exclude_month() {
 }
 
 function smart_archives_filename($id) {
+	global $blog_id;
+	
 	$post_type	= get_post_type($id);
 	$post_type	= empty($post_type) ? 'post' : $post_type;
 	$category	= template_taxonomy_single_object('category', $id);
 	
 	$filename	= 'archive-' . $post_type . (smart_archives_category_enabled() && !empty($category) && !empty($category->slug) ? '-' . $category->slug : '');
 	$extension	= '.txt';
-	$path		= WP_CONTENT_DIR . '/archives/';
+	$path		= WP_CONTENT_DIR . '/archives/' . $blog_id . '/';
 	
 	if(!is_dir($path)) {
-		mkdir($path, 0755);
+		mkdir($path, 0755, true);
 	}
 	
 	return $path . $filename . $extension;
@@ -79,7 +81,7 @@ function smart_archives_generate($id) {
 
     foreach($yearsWithPosts as $currentYear) {
         for($currentMonth = 1; $currentMonth <= 12; $currentMonth++) {
-			$sql = 'SELECT wp_posts.*
+			$sql = 'SELECT ' . $wpdb->posts . '.*
 					FROM ' . $wpdb->posts . '
 						
 					' . (smart_archives_category_enabled() && !empty($category) && !empty($category->term_id) ? 'INNER JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)' : '') . '
@@ -89,12 +91,12 @@ function smart_archives_generate($id) {
 						
 					' . (smart_archives_category_enabled() && !empty($category) && !empty($category->term_id) ? 'AND (wp_term_taxonomy.term_id IN (' . $category->term_id . '))' : '') . '
 						
-					AND wp_posts.post_type = "' . $post_type . '"
-					AND wp_posts.post_status = "publish"
-					AND year(wp_posts.post_date) = "' . $currentYear->year . '"
-					AND month(wp_posts.post_date) = "' . $currentMonth . '"
-					GROUP BY wp_posts.ID
-					ORDER BY wp_posts.post_date DESC';
+					AND ' . $wpdb->posts . '.post_type = "' . $post_type . '"
+					AND ' . $wpdb->posts . '.post_status = "publish"
+					AND year(' . $wpdb->posts . '.post_date) = "' . $currentYear->year . '"
+					AND month(' . $wpdb->posts . '.post_date) = "' . $currentMonth . '"
+					GROUP BY ' . $wpdb->posts . '.ID
+					ORDER BY ' . $wpdb->posts . '.post_date DESC';
 			
 			if($excludeMonth !== $currentMonth . '/' . $currentYear->year) {
 	            $monthsWithPosts[$currentYear->year][$currentMonth] = $wpdb->get_results($sql);
