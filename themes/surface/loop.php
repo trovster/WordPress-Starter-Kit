@@ -1,8 +1,6 @@
 <?php $i = 1; $total = $wp_query->post_count; while(have_posts()): the_post(); ?>
 	<?php
-	$class		= array();
-	$class[]	= ($i === 1) ? 'f' : '';
-	$class[]	= ($i === $total) ? 'l' : '';
+	$class		= class_count_attr($i, $total, array());
 	$class[]	= (has_post_thumbnail()) ? 'has-thumbnail' : '';
 	
 	$type		= get_post_type();
