@@ -51,10 +51,10 @@ form.search label,
 * @see http://www.positioniseverything.net/easyclearing.html
 * --------------------------------------------------------------------------------------------------
 */
-.clearfix::after,
-#header::after,
-#content::after,
-.results li::after {
+.clearfix:after,
+#header:after,
+#content:after,
+.results li:after {
 	clear: both;
 	display: block; visibility: hidden;
 	height: 0;
