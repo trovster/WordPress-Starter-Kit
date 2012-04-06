@@ -121,19 +121,5 @@ function get_taxonomy_based_on_type($default, $custom_post_types = array(), $pre
  * @return	string 
  */
 function get_taxonomy_custom_option($taxonomy, $option) {
-	return get_option($category->taxonomy . '_' . $category->term_id . '_' . $option);
-}
-
-/**
- * get_taxonomy_colour
- * @desc	
- * @param	object	$taxonomy
- * @return	string 
- */
-function get_taxonomy_colour($taxonomy) {
-	$colour = get_option($taxonomy->taxonomy . '_' . $taxonomy->term_id . '_category_colour');
-	if(!empty($colour)) {
-		$colour = strpos($colour, '#') === 0 ? $colour : '#' . $colour;
-	}
-	return $colour;
+	return get_option($taxonomy->taxonomy . '_' . $taxonomy->term_id . '_' . $option);
 }
