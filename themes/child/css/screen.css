@@ -53,8 +53,7 @@ form.search label,
 */
 .clearfix:after,
 #header:after,
-#content:after,
-.results li:after {
+#content:after {
 	clear: both;
 	display: block; visibility: hidden;
 	height: 0;
@@ -162,10 +161,6 @@ h5 {
 }
 /* @end */
 
-.clear {
-	clear: both;
-}
-
 /* @group Reset Lists */
 .nav,
 .nav ul,
@@ -176,9 +171,6 @@ h5 {
 .social-icons,
 .social-icons ul,
 .social-icons li,
-.social-buttons,
-.social-buttons ul,
-.social-buttons li,
 .taxonomy ul,
 .taxonomy li,
 .archive ul,
@@ -282,6 +274,7 @@ form .wpcf7-not-valid-tip {
 	position: relative; z-index: 100;
 }
 #header div.inner {}
+	#header h1 {}
 		#header h1,
 		#header h1 a {
 			width: 176px; height: 145px;
@@ -334,7 +327,9 @@ form .wpcf7-not-valid-tip {
 #content {
 	position: relative; z-index: 50;
 }
-#content div.inner {}
+#content div.inner {
+	min-height: 300px;
+}
 	#content-primary,
 	#content-secondary {
 		position: relative;
