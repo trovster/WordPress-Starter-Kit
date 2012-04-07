@@ -346,11 +346,11 @@ form .wpcf7-not-valid-tip {
 	
 	.alignright {
 		float: right;
-		margin: 0 0 0 10px;
+		margin: 0 0 15px 15px;
 	}
 	.alignleft {
-		float: right;
-		margin: 0 10px 0 0;
+		float: left;
+		margin: 0 15px 15px 0;
 	}
 	.aligncenter {
 		display: block;
