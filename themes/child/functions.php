@@ -27,13 +27,13 @@ add_image_size('slideshow', 960, 500, true);
 add_image_size('featured', 240, 150, true);
 
 /**
- * template_is_page
+ * template_is_section
  * @desc	Check what page is set
  * @global	object	$post
  * @param	string	$page
  * @return	boolean 
  */
-function template_is_page($page) {
+function template_is_section($page) {
 	global $post;
 	
 	if(is_search()) {
@@ -113,10 +113,10 @@ function site_register_javascript_css() {
 		
 		wp_enqueue_script('jquery');
 		
-		if(template_is_page('homepage')) {
+		if(template_is_section('homepage')) {
 			wp_enqueue_script('plugin.cycle');
 		}
-		if(template_is_page('gallery')) {
+		if(template_is_section('gallery')) {
 			wp_enqueue_script('plugin.fancybox');
 		}
 		
@@ -180,20 +180,17 @@ function site_body_classes($classes) {
 		 $classes[] = 'page';
 	}
 
-	if(template_is_page('contact')) {
+	if(template_is_section('contact')) {
 		$classes[] = 'contact';
 	}
-	if(template_is_page('about')) {
+	if(template_is_section('about')) {
 		$classes[] = 'about';
 	}
-	if(template_is_page('homepage')) {
+	if(template_is_section('homepage')) {
 		$classes[] = 'homepage';
 	}
-	if(template_is_page('gallery')) {
+	if(template_is_section('gallery')) {
 		$classes[] = 'gallery';
-	}
-	if(template_is_page('gallery')) {
-		$classes[] = 'single-gallery';
 	}
 
 	return $classes;
