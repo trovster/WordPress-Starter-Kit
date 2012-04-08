@@ -20,7 +20,7 @@
 			<?php endif; ?>
 			<?php if($link === true): ?></a><?php endif; ?>
 		</li>
-	<?php $i++; endwhile; wp_reset_query(); ?>
+	<?php $i++; endwhile; ?>
 	</ul>
 	<!-- end of div #slideshow -->
 </div>
