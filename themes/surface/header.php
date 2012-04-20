@@ -34,7 +34,6 @@
 		<meta name="language" content="en" />
 		<meta name="robots" content="index,follow" />
 		<meta name="revisit-after" content="28 days" />
-		<meta name="viewport" content="width=1036; initial-scale=1.0;" />
 		<meta http-equiv="imagetoolbar" content="false" />
 
 		<!-- title, description, etc... -->
