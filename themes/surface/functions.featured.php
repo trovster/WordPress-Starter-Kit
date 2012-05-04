@@ -38,10 +38,33 @@ function featured_init() {
 		'rewrite'				=> false,
 		'hierarchical'			=> false,
 		'supports'				=> array(
-			'title', 'editor', 'thumbnail', 'page-attributes'
+			'title',
+			'editor',
+			'thumbnail',
+			'page-attributes'
 		)
 	));
 }
+
+/**
+ * slideshow_pre_get_posts
+ * @desc	Restrict posts
+ */
+function slideshow_pre_get_posts(&$query) {
+	$type	= $query->query_vars['post_type'];
+	$update	= !is_admin() && !is_preview() && is_string($type) && $type === 'featured';
+	
+	if(!is_array($query->query_vars['meta_query'])) {
+		$query->query_vars['meta_query'] = array($query->query_vars['meta_query']);
+	}
+	
+	if($update) {
+		$query->set('post_type', 'featured');
+	}
+	
+	$query->set('meta_query', array_filter($query->query_vars['meta_query']));
+}
+add_action('pre_get_posts', 'slideshow_pre_get_posts');
 
 /**
  * featured_custom_fields_featured
