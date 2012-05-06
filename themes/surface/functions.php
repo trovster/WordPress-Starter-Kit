@@ -27,6 +27,45 @@ add_image_size('slideshow', 960, 500, true);
 add_image_size('featured', 240, 150, true);
 
 /**
+ * template_get_nav
+ * @desc	Site-wide navigation
+ * @param	boolean	$is_footer
+ * @return	array
+ */
+function template_get_nav($is_footer = false) {
+	$navigation	= array(
+		'home' => array(
+			'text'			=> 'Home',
+			'href'			=> '/',
+			'class'			=> array('home'),
+			'page_id'		=> 4,
+		),
+		'about' => array(
+			'text'			=> 'About',
+			'href'			=> '/about/',
+			'class'			=> array('about'),
+			'page_id'		=> 5,
+		),
+		'news-events' => array(
+			'text'			=> 'News & Events',
+			'href'			=> '/news-events/',
+			'class'			=> array('news-events'),
+			'page_id'		=> 6,
+		),
+		'contact' => array(
+			'text'			=> 'Contact Us',
+			'href'			=> '/contact/',
+			'class'			=> array('contact'),
+			'page_id'		=> 7,
+		),
+	);
+	
+	if($is_footer) {}
+	
+	return $navigation;
+}
+
+/**
  * template_is_section
  * @desc	Check what page is set
  * @global	object	$post
@@ -41,30 +80,95 @@ function template_is_section($page) {
 	}
 	
 	switch(strtolower($page)) {
+		case 4:
 		case 'homepage':
 		case 'home':
 			return is_front_page();
 			break;
 		
-		case 'contact':
-			return is_page('contact');
-			break;
-		
+		case 5:
 		case 'about':
-			return is_page('about');
+		case 'about-us':
+			return $post->ID === 5 || (is_array($post->ancestors) && in_array(5, $post->ancestors)) || is_page('about') || is_page('about-us');
 			break;
 		
-		case 'gallery':
-			return is_page_template('page-galleries.php');
+		case 6:
+		case 'news':
+			return $post->ID === 6 || (is_array($post->ancestors) && in_array(6, $post->ancestors)) || is_home() || is_category() || is_tag() || is_singular('post') || is_date();
 			break;
 		
-		case 'gallery':
-			return get_query_var('gallery');
+		case 7:
+		case 'contact':
+		case 'contact-us':
+			return $post->ID === 7 || (is_array($post->ancestors) && in_array(7, $post->ancestors)) || is_page('contact') || is_page('contact-us');
 			break;
 	}
 	
 	return false;
 }
+
+/**
+ * template_section_class
+ * @desc	Add 'active' to the class for the navigation, based on page ID
+ * @global	object			$post
+ * @param	int				$page_id
+ * @param	string|array	$class
+ * @return	array
+ */
+function template_section_class($page_id, $class) {
+	global $post;
+	
+	$classes	= !is_array($class) ? array($class) : $class;
+	$active		= false;
+	
+	if(!is_null($page_id) && ($page_id === $post->ID || in_array($post->post_name, $classes))) {
+		$active = true;
+		$classes[] = 'active';
+	}
+	if(template_is_section($page_id)) {
+		$active = true;
+		$classes[] = 'active';
+	}
+	
+	return $classes;
+}
+
+/**
+ * site_body_classes
+ * @desc	Add extra information to the body class
+ * @hook	add_filter('body_class');
+ * @param	array	$classes
+ * @return	array
+ */
+function site_body_classes($classes) {
+	
+	if(!is_array($classes)) {
+		$classes = (array) $classes;
+	}
+	
+	if(is_search()) {
+		 // no section is active
+		$classes[] = 'listing';
+		return $classes;
+	}
+	if(is_404()) {
+		 $classes[] = 'page';
+	}
+	
+	if(template_is_section('homepage')) {
+		$classes[] = 'homepage';
+	}
+	if(template_is_section('news')) {
+		$classes[] = 'listing';
+		$classes[] = 'news';
+	}
+	if(template_is_section('contact')) {
+		$classes[] = 'contact';
+	}
+	
+	return $classes;
+}
+add_filter('body_class', 'site_body_classes');
 
 /**
  * site_new_excerpt_length
@@ -150,52 +254,6 @@ function site_stylesheet_directory_uri($stylesheet_dir_uri, $stylesheet, $theme_
 	return $uri;
 }
 add_action('stylesheet_directory_uri', 'site_stylesheet_directory_uri', 10, 3);
-
-/**
- * site_body_classes
- * @desc	Add extra information to the body class
- * @hook	add_filter('body_class');
- * @param	array	$classes
- * @return	array
- */
-function site_body_classes($classes) {
-	global $post;
-	
-	$post_type	= template_get_post_type();
-	$taxonomy	= 'category';
-
-	if(!is_array($classes)) {
-		$classes = (array) $classes;
-	}
-	
-	if(is_search()) {
-		 // no section is active
-		$classes[] = 'listing';
-		return $classes;
-	}
-	if(is_404()) {
-		 $classes[] = 'page';
-	}
-
-	if(template_is_section('contact')) {
-		$classes[] = 'contact';
-	}
-	if(template_is_section('about')) {
-		$classes[] = 'about';
-	}
-	if(template_is_section('homepage')) {
-		$classes[] = 'homepage';
-	}
-	if(template_is_section('gallery')) {
-		$classes[] = 'gallery';
-	}
-	if(template_is_section('blog') || template_is_section('news')) {
-		$classes[] = 'listing';
-	}
-	
-	return $classes;
-}
-add_filter('body_class', 'site_body_classes');
 
 /**
  * register_navigation
