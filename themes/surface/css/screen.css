@@ -1,7 +1,7 @@
 /*
-* @updated		03/2012
+* @updated		05/2012
 * @author		Trevor Morris / Surface
-* @project		Child Theme
+* @project		Theme
 * --------------------------------------------------------------------------------------------------*/
 
 /**
@@ -101,7 +101,6 @@ html, body {
 a,
 a:visited {
 	position: relative;
-	display: inline-block;
 	color: #000; text-decoration: underline;
 }
 a:hover,
@@ -606,13 +605,11 @@ body.blog #content div.inner {}
 		body.blog .hentry .entry-title,
 		body.blog .hentry .entry-title a {
 			font-size: 32px;
-			text-align: left; text-decoration: none; color: red;
+			text-align: left; text-decoration: none;
 		}
 			body.blog .hentry .entry-title a:hover,
 			body.blog .hentry .entry-title a:focus,
-			body.blog .hentry .entry-title a:active {
-				color: green;
-			}
+			body.blog .hentry .entry-title a:active {}
 			
 		body.blog .hentry .entry-meta {
 			position: relative; overflow: hidden;
