@@ -294,11 +294,39 @@ function get_custom_link_href($custom, $default = false) {
  */
 function template_custom_field($id, $name, $label, $value, $class = '', $type = null) {
 	$type  = is_null($type) ? 'text' : $type;
-	
+
 	$html  = '';
 	$html .= '<p><label for="' . $id . '">' . $label . ':</label><br />';
-	$html .= '<input style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . ' /></p>';
+
+	if($type === 'textarea') {
+		$html .= '<textarea style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . '>' . $value . '</textarea></p>';
+	}
+	else {
+		$html .= '<input style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . ' /></p>';
+	}
+
 	return $html;
+}
+
+/**
+ * page_custom_fields_secondary_column
+ * @global	object	$post 
+ */
+function page_custom_fields_display_textarea($field) {
+	$custom		= get_post_custom($post->ID);
+	$label		= str_replace('_', ' ', $field);
+	$label		= ucwords($label);
+	$value		= template_get_custom_field($custom, $field);
+	$id			= $field;
+	$name		= 'custom_' . $field;
+
+	return wp_editor($value, str_replace('_', '', $id), array(
+		'tinymce'			=> true,
+		'media_buttons'		=> true,
+		'textarea_name'		=> $name,
+		'textarea_rows'		=> 10,
+		'editor_class'		=> '',
+	));
 }
 
 /**

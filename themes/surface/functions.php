@@ -276,3 +276,20 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$output .= "</li>";
 	}
 }
+
+/**
+ * custom_fields_secondary_column
+ * @desc	Custom box for secondary column
+ */
+function custom_fields_secondary_column() {
+	add_meta_box('secondary_column', 'Secondary Column', 'custom_fields_secondary_column_box', 'page', 'normal', 'high');
+}
+add_action('admin_init', 'custom_fields_secondary_column');
+
+/**
+ * custom_fields_secondary_column_box
+ * @global	object	$post 
+ */
+function custom_fields_secondary_column_box() {
+	echo page_custom_fields_display_textarea('secondary_column');
+}
