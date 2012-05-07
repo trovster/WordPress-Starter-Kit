@@ -2,8 +2,6 @@
 
 <?php $type = template_get_post_type(); ?>
 
-<?php get_sidebar($type); ?>
-
 <div id="content-primary">
 	
 	<div class="header">
@@ -20,5 +18,7 @@
 	
 <!-- end of div id #content-primary -->
 </div>
+
+<?php get_sidebar('search'); ?>
 
 <?php get_footer(); ?>
