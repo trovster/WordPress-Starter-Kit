@@ -10,10 +10,10 @@
 		<p>Displaying search results for: <strong><?php echo get_search_query(); ?></strong></p>
 	</div>
 	
-	<div id="<?php echo $type; ?>" class="hatom archive">
+	<div id="search" class="hatom archive">
 		<?php rewind_posts(); ?>
 		<?php get_template_part('loop', $type); ?>
-	<!-- end of div #<?php echo $type; ?> -->
+	<!-- end of div #search -->
 	</div>
 	
 	<?php get_template_part('paginate'); ?>
