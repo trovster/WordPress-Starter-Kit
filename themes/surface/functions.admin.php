@@ -9,24 +9,24 @@ Version: 0.0.1
 */
 
 /**
- * admin_custom_js_css
+ * surface_admin_custom_js_css
  * @desc	Adds custom CSS and JavaScript to the CMS
  */
-function admin_custom_js_css() {
+function surface_admin_custom_js_css() {
 	// custom JS and CSS
 	wp_enqueue_script('app', get_stylesheet_directory_uri() . '/js/app.js', array('jquery'), null, true);
 	wp_enqueue_script('custom-admin-js', get_stylesheet_directory_uri() . '/js/site.admin.js', array('jquery', 'app'), null, true);
 	wp_enqueue_style('custom-admin-css', get_stylesheet_directory_uri() . '/css/admin.css', array(), null);
 }
-add_action('admin_init', 'admin_custom_js_css');
+add_action('admin_init', 'surface_admin_custom_js_css');
 
 /**
- * base_admin_body_class
+ * surface_admin_body_class
  * @see		http://www.kevinleary.net/customizing-wordpress-admin-css-javascript/
  * @param	string	$classes
  * @return	string 
  */
-function base_admin_body_class($classes) {
+function surface_admin_body_class($classes) {
 	if(is_admin()) {
 		// Current action
 		if(isset($_GET['action']) ) {
@@ -55,4 +55,25 @@ function base_admin_body_class($classes) {
 	// Return the $classes array
 	return $classes;
 }
-add_filter('admin_body_class', 'base_admin_body_class');
+add_filter('admin_body_class', 'surface_admin_body_class');
+
+/**
+ * surface_admin_post_types_rightnow
+ * @desc Add all your custom post type counts to 'Right Now' dashboard widget
+ */
+function surface_admin_post_types_rightnow() {
+	$post_types = get_post_types(array(
+		'_builtin' => false
+	), 'objects');
+	
+	if(count($post_types) > 0) {
+		foreach($post_types as $pt => $args) {
+			$url = 'edit.php?post_type=' . $pt;
+			echo '<tr>';
+			echo '<td class="b"><a href="' . $url . '">' . wp_count_posts($pt)->publish . '</a></td>';
+			echo '<td class="t"><a href="' . $url . '">' . $args->labels->name . '</a></td>';
+			echo '</tr>';
+		}
+	}
+}
+add_action('right_now_content_table_end', 'surface_admin_post_types_rightnow');
