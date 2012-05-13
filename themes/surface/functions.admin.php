@@ -77,3 +77,17 @@ function surface_admin_post_types_rightnow() {
 	}
 }
 add_action('right_now_content_table_end', 'surface_admin_post_types_rightnow');
+
+/**
+ * surface_admin_menu_remove_menu
+ * @desc	Remove menu items from the admin menu
+ */
+function surface_admin_menu_remove_menu() {
+	$slugs	= array(
+		'link-manager.php',
+	);
+	foreach($slugs as $slug) {
+		remove_menu_page($slug);
+	}
+}
+add_action('admin_menu', 'surface_admin_menu_remove_menu');
