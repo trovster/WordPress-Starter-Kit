@@ -121,7 +121,7 @@ function template_section_class($page_id, $class) {
 	$classes	= !is_array($class) ? array($class) : $class;
 	$active		= false;
 	
-	if(!is_null($page_id) && ($page_id === $post->ID || in_array($post->post_name, $classes))) {
+	if(!is_null($page_id) && is_object($post) && ($page_id === $post->ID || in_array($post->post_name, $classes))) {
 		$active = true;
 		$classes[] = 'active';
 	}
