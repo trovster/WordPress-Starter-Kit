@@ -251,7 +251,7 @@ class Html
 		// standardise the array keys
 		$standarised = array();
 		foreach($array as $key => $value) {
-			switch(\Str::lower($key)) {
+			switch(strtolower($key)) {
 				case 'street_address':
 					$type = 'street-address';
 					break;
@@ -280,7 +280,7 @@ class Html
 		$html			= '';
 		//$standarised	= Arr::filter_keys($standarised, $valid_types);
 		foreach($standarised as $type => $value) {
-			$html .= \Html::span($value, array('class' => $type)).PHP_EOL;
+			$html .= Html::span($value, array('class' => $type)).PHP_EOL;
 		}
 		
 		return Html::html_tag('address', $attr, $html);
