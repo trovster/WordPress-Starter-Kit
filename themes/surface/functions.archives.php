@@ -110,7 +110,7 @@ function smart_archives_generate($id) {
 	}
 
 	if($yearsWithPosts) {
-		$d = 1;
+		$d = 1; $archives = '';
 		foreach($yearsWithPosts as $currentYear) {
 			for ($currentMonth = 12; $currentMonth >= 1; $currentMonth--) {
 				if ($monthsWithPosts[$currentYear->year][$currentMonth]) {
