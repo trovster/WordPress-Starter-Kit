@@ -894,3 +894,17 @@ function template_list_custom_post_type($post_type, $class = array()) {
 	
 	return $output;
 }
+
+/**
+ * template_get_template_by_id
+ * @desc	Finds the page template variable, by page ID
+ * @param	int	$page_id
+ * @return	false|string
+ */
+function template_get_template_by_id($page_id) {
+	$custom = get_post_custom($page_id);
+	if(!empty($custom)) {
+		return template_get_custom_field($custom, 'page_template', '_wp_');
+	}
+	return false;
+}
