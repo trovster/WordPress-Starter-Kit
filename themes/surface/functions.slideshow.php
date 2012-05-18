@@ -52,10 +52,13 @@ function slideshow_init() {
  * @desc	Restrict posts
  */
 function featured_pre_get_posts(&$query) {
-	$type	= $query->query_vars['post_type'];
+	$type	= !empty($query->query_vars['post_type']) ? $query->query_vars['post_type'] : false;
 	$update	= !is_admin() && !is_preview() && is_string($type) && $type === 'slideshow';
-	
-	if(!is_array($query->query_vars['meta_query'])) {
+
+	if(empty($query->query_vars['meta_query'])) {
+		$query->query_vars['meta_query'] = array();
+	}
+	elseif(!empty($query->query_vars['meta_query']) && !is_array($query->query_vars['meta_query'])) {
 		$query->query_vars['meta_query'] = array($query->query_vars['meta_query']);
 	}
 	
