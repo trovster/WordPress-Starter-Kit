@@ -437,7 +437,7 @@ function post_type_custom_fields_update($post_id) {
 	global $post;
 
 	// check user permissions / capabilities
-	if($_POST['post_type'] == 'page') {
+	if(!empty($_POST['post_type']) && $_POST['post_type'] == 'page') {
 		if(!current_user_can('edit_page', $post_id)) {
 			return $post_id;
 		}
