@@ -42,13 +42,13 @@ function surface_admin_body_class($classes) {
 		}
 			
 		// Editting a post type
-		$post_query = $_GET['post'];
+		$post_query = !empty($_GET['post']) ? $_GET['post'] : null;
 		if(isset($post_query)) {
 			$current_post_edit = get_post($post_query);
 			$current_post_type = $current_post_edit->post_type;
 			if(!empty($current_post_type)) {
 				$classes .= ' ';
-				$classes .= 'post-type-'.$current_post_type;
+				$classes .= 'post-type-' . $current_post_type;
 			}
 		}
 	}
