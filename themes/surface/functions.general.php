@@ -400,7 +400,7 @@ function post_type_custom_select($custom_post_type, $option, $value, $name, $id 
 	));
 
 	$html .= '<select name="' . $name . '" id="' . $id . '" style="min-width: 200px;">';
-	$html .= '<option value="">' . attribute_escape(__($default)) . '</option>';
+	$html .= '<option value="">' . esc_attr(__($default)) . '</option>';
 	foreach($custom_posts as $custom_post) {
 		$selected = ($custom_post->ID == $value) ? ' selected="selected"' : '';
 		$html .= '<option value="' . $custom_post->ID . '"' . $selected . '>' . $custom_post->{$option} . '</option>';
