@@ -89,18 +89,18 @@ function template_is_section($page) {
 		case 5:
 		case 'about':
 		case 'about-us':
-			return $post->ID === 5 || (is_array($post->ancestors) && in_array(5, $post->ancestors)) || is_page('about') || is_page('about-us');
+			return $post->ID === 5 || (!empty($post->ancestors) && is_array($post->ancestors) && in_array(5, $post->ancestors)) || is_page('about') || is_page('about-us');
 			break;
 		
 		case 6:
 		case 'news':
-			return $post->ID === 6 || (is_array($post->ancestors) && in_array(6, $post->ancestors)) || is_home() || is_category() || is_tag() || is_singular('post') || is_date();
+			return $post->ID === 6 || (!empty($post->ancestors) && is_array($post->ancestors) && in_array(6, $post->ancestors)) || is_home() || is_category() || is_tag() || is_singular('post') || is_date();
 			break;
 		
 		case 7:
 		case 'contact':
 		case 'contact-us':
-			return $post->ID === 7 || (is_array($post->ancestors) && in_array(7, $post->ancestors)) || is_page('contact') || is_page('contact-us');
+			return $post->ID === 7 || (!empty($post->ancestors) && is_array($post->ancestors) && in_array(7, $post->ancestors)) || is_page('contact') || is_page('contact-us');
 			break;
 	}
 	
