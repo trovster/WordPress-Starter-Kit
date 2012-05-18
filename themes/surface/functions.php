@@ -66,6 +66,41 @@ function template_get_nav($is_footer = false) {
 }
 
 /**
+ * template_get_nav_item
+ * @desc	Get the page information from the navigation array
+ * @param	string	$key
+ * @param	string	$value
+ * @return	null|int
+ */
+function template_get_nav_item($key, $value = null) {
+	$navigation = template_get_nav();
+
+	if(!empty($navigation[$key])) {
+		if(!is_null($value)) {
+			if(!empty($navigation[$key][$value])) {
+				return $navigation[$key][$value];
+			}
+
+			return null;
+		}
+
+		return $navigation[$key];
+	}
+
+	return null;
+}
+
+/**
+ * template_get_nav_item_id
+ * @desc	Proxy to template_get_nav_item, to get the page_id
+ * @param	string	$key
+ * @return	null|int
+ */
+function template_get_nav_item_id($key) {
+	return template_get_nav_item($key, 'page_id');
+}
+
+/**
  * template_is_section
  * @desc	Check what page is set
  * @global	object	$post
