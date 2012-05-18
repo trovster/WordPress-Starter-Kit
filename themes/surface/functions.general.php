@@ -861,3 +861,36 @@ function wp_trim_all_excerpt($text) {
 }
 remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 add_filter('get_the_excerpt', 'wp_trim_all_excerpt');
+
+/**
+ * template_list_custom_post_type
+ * @desc	Like wp_list_pages, but for custom post type
+ * @global	object	$post
+ * @param	string	$post_type
+ * @param	array	$class
+ * @return	string
+ */
+function template_list_custom_post_type($post_type, $class = array()) {
+	global $post;
+	
+	$output				= '';
+	$post_type			= strtolower($post_type);
+	$class				= !is_array($class) ? array($class) : $class;
+	$post_type_posts	= get_posts(array(
+		'post_type'			=> $post_type,
+		'numberposts'		=> -1,
+		'orderby'			=> 'menu_order',
+		'order'				=> 'ASC',
+	));
+	
+	if(count($post_type_posts)) {
+		$output .= '<ul' . template_add_class($class) . '>' . "\r\n";
+		foreach($post_type_posts as $post_type_post) {
+			$class	= $post_type_post->ID === $post->ID && $post->post_type === $post_type ? array('active', 'current_page_item') : array();
+			$output .= '<li' . template_add_class($class) . '><a href="' . get_permalink($post_type_post->ID) . '">' . get_the_title($post_type_post->ID) . '</a></li>';
+		}
+		$output .= '</ul>' . "\r\n";
+	}
+	
+	return $output;
+}
