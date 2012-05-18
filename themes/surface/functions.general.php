@@ -313,6 +313,8 @@ function template_custom_field($id, $name, $label, $value, $class = '', $type = 
  * @global	object	$post 
  */
 function page_custom_fields_display_textarea($field) {
+	global $post;
+
 	$custom		= get_post_custom($post->ID);
 	$label		= str_replace('_', ' ', $field);
 	$label		= ucwords($label);
