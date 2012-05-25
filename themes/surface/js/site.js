@@ -1,6 +1,8 @@
 'use strict';
 
-/*global window, document, console, jQuery, App:true, google, _gaq */
+/*global window, document, console, Modernizr, jQuery, App:true, google, _gaq */
+
+/*jslint plusplus: true, nomen: true */
 
 /**
  * @desc Specific application options
