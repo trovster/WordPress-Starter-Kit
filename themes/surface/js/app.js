@@ -17,7 +17,7 @@ var App = (function (App, $) {
 				log: function () {
 					window.log.history = window.log.history || [];
 					window.log.history.push(arguments);
-					if (console) {
+					if (typeof console !== 'undefined') {
 						console.log(Array.prototype.slice.call(arguments));
 					}
 				}
