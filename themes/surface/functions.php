@@ -29,10 +29,10 @@ add_image_size('featured', 240, 150, true);
 /**
  * template_get_nav
  * @desc	Site-wide navigation
- * @param	boolean	$is_footer
+ * @param	string	$type
  * @return	array
  */
-function template_get_nav($is_footer = false) {
+function template_get_nav($type = null) {
 	$navigation	= array(
 		'home' => array(
 			'text'			=> 'Home',
@@ -60,7 +60,7 @@ function template_get_nav($is_footer = false) {
 		),
 	);
 	
-	if($is_footer) {}
+	if($type === 'footer') {}
 	
 	return $navigation;
 }
