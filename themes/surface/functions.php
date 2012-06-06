@@ -66,41 +66,6 @@ function template_get_nav($is_footer = false) {
 }
 
 /**
- * template_get_nav_item
- * @desc	Get the page information from the navigation array
- * @param	string	$key
- * @param	string	$value
- * @return	null|int
- */
-function template_get_nav_item($key, $value = null) {
-	$navigation = template_get_nav();
-
-	if(!empty($navigation[$key])) {
-		if(!is_null($value)) {
-			if(!empty($navigation[$key][$value])) {
-				return $navigation[$key][$value];
-			}
-
-			return null;
-		}
-
-		return $navigation[$key];
-	}
-
-	return null;
-}
-
-/**
- * template_get_nav_item_id
- * @desc	Proxy to template_get_nav_item, to get the page_id
- * @param	string	$key
- * @return	null|int
- */
-function template_get_nav_item_id($key) {
-	return template_get_nav_item($key, 'page_id');
-}
-
-/**
  * template_is_section
  * @desc	Check what page is set
  * @global	object	$post
@@ -271,26 +236,6 @@ function site_register_javascript_css() {
 add_action('template_redirect', 'site_register_javascript_css');
 
 /**
- * site_stylesheet_directory_uri
- * @desc	Adding CDN URL (if set) and removing the -trade suffix for theme
- * @param	string	$stylesheet_dir_uri
- * @param	string	$stylesheet
- * @param	string	$theme_root_uri
- * @return	string 
- */
-function site_stylesheet_directory_uri($stylesheet_dir_uri, $stylesheet, $theme_root_uri) {
-	$uri	= $stylesheet_dir_uri;
-	$uri	= str_replace(array('-trade'), array(''), $uri);
-	
-	if(defined('WP_CDN')) {
-		$uri = str_replace(constant('WP_SITEURL'), constant('WP_CDN'), $uri);
-	}
-	
-	return $uri;
-}
-add_action('stylesheet_directory_uri', 'site_stylesheet_directory_uri', 10, 3);
-
-/**
  * register_navigation
  * @desc	Registering custom navigations with WordPress
  * @hook	add_action('init');
@@ -301,16 +246,6 @@ function register_navigation() {
 	));
 }
 //add_action('init', 'register_navigation');
-
-/**
- * Walker_Nav_Menu
- * Overwrite end_el function to remove the new line, which causes white space issues with display-inline
- */
-class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
-	function end_el(&$output, $item, $depth) {
-		$output .= "</li>";
-	}
-}
 
 /**
  * custom_fields_secondary_column

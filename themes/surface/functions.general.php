@@ -105,7 +105,7 @@ add_filter('excerpt_length', 'new_excerpt_length');
  * @return	array
  */
 function disable_all_widgets($sidebars_widgets) {
-		return array(false);
+	return array(false);
 }
 add_filter('sidebars_widgets', 'disable_all_widgets');
 
@@ -252,244 +252,6 @@ function catch_that_image() {
 	return $first_img;
 }
 
-/**
- * get_custom_link_href
- * @desc	
- * @param	array	$custom
- * @param	mixed	$default
- * @return	mixed
- */
-function get_custom_link_href($custom, $default = false) {
-	$href = $default;
-	
-	if((isset($custom['custom_link_url']) && !empty($custom['custom_link_url'][0])) ||
-	   (isset($custom['custom_page_id']) && !empty($custom['custom_page_id'][0]))
-	) {
-		if(isset($custom['custom_page_id']) && !empty($custom['custom_page_id'][0])) {
-			$href = get_permalink($custom['custom_page_id'][0]); // get the page link by page id
-		}
-		else {
-			$href = $custom['custom_link_url'][0];
-		}
-	}
-	
-	return $href;
-}
-
-
-/*/////////////////////////////////////////////////////////////////////
-	Custom Post / Admin Functions
-/////////////////////////////////////////////////////////////////////*/
-
-/**
- * template_custom_field
- * @desc	
- * @param	string	$id
- * @param	string	$name
- * @param	string	$label
- * @param	string	$value
- * @param	string	$class
- * @param	string	$type
- * @return string 
- */
-function template_custom_field($id, $name, $label, $value, $class = '', $type = null) {
-	$type  = is_null($type) ? 'text' : $type;
-
-	$html  = '';
-	$html .= '<p><label for="' . $id . '">' . $label . ':</label><br />';
-
-	if($type === 'textarea') {
-		$html .= '<textarea style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . '>' . $value . '</textarea></p>';
-	}
-	else {
-		$html .= '<input style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . ' /></p>';
-	}
-
-	return $html;
-}
-
-/**
- * page_custom_fields_secondary_column
- * @global	object	$post 
- */
-function page_custom_fields_display_textarea($field) {
-	global $post;
-
-	$custom		= get_post_custom($post->ID);
-	$label		= str_replace('_', ' ', $field);
-	$label		= ucwords($label);
-	$value		= template_get_custom_field($custom, $field);
-	$id			= $field;
-	$name		= 'custom_' . $field;
-
-	return wp_editor($value, str_replace('_', '', $id), array(
-		'tinymce'			=> true,
-		'media_buttons'		=> true,
-		'textarea_name'		=> $name,
-		'textarea_rows'		=> 10,
-		'editor_class'		=> '',
-	));
-}
-
-/**
- * post_type_custom_fields_general_featured
- * @desc	Video featured custom fields
- * @global	object	$post
- */
-function post_type_custom_fields_general_featured() {
-	global $post;
-
-	$custom			= get_post_custom($post->ID);
-	$is_featured	= is_custom_boolean($custom, 'custom_is_featured');
-
-	echo '<p>You can set ONE item as “featured”?..</p>';
-
-	echo '<p class="checkbox" style="padding-top: 5px;">';
-	echo '<input type="hidden" name="custom_is_featured" value="false" />';
-	echo '<input style="margin-right: 5px;" id="custom_is_featured" value="true" type="checkbox" name="custom_is_featured"' . (($is_featured) ? ' checked="checked"' : '') . ' />';
-	echo '<label for="custom_is_featured" style="font-weight: bold;">Set as Featured?</label>';
-	echo '</p>';
-
-	echo '<p>Note, there can only be one item featured
-	<em>if more than one item is set as featured,
-	<strong>the first</strong> will be used</em>.</p>';
-}
-
-/**
- * post_type_custom_fields_general_page_id
- * @desc	Custom post type to associate WordPress pages
- * @global	object	$post
- */
-function post_type_custom_fields_general_page_id($id = 'custom_page_id', $label = 'Select page') {
-	global $post;
-
-	$i			= 0;
-	$custom		= get_post_custom($post->ID);
-	$pages		= array();
-	$pageId		= template_get_custom_field($custom, $id, '');
-
-	echo '<p><label for="' . $id . '">' . $label . ':</label><br />';
-	echo wp_dropdown_pages(array(
-		'depth'				=> 0,
-		'child_of'			=> 0,
-		'selected'			=> !empty($pageId) ? $pageId : 0,
-		'echo'				=> false,
-		'name'				=> $id,
-		'show_option_none'	=> 'None',
-	));
-}
-
-/**
- * post_type_custom_select
- * @param	string	$custom_post_type
- * @param	string	$option // the post property to show in the <option></option>
- * @param	string	$value // current value, if present
- * @param	string	$name
- * @param	string	$id
- * @param	string	$default // text that is the default, none selected option
- * @return	string	$html
- */
-function post_type_custom_select($custom_post_type, $option, $value, $name, $id = null, $default = 'Select...') {
-	$html	= '';
-	$id		= !is_string($id) ? $name : $id; // general, id the same as name
-
-	// find the posts based on the custom_post_type
-	$custom_posts	= get_posts(array(
-		'numberposts'	=> -1,
-		'orderby'		=> 'post_title',
-		'order'			=> 'ASC',
-		'post_type'		=> $custom_post_type
-	));
-
-	$html .= '<select name="' . $name . '" id="' . $id . '" style="min-width: 200px;">';
-	$html .= '<option value="">' . esc_attr(__($default)) . '</option>';
-	foreach($custom_posts as $custom_post) {
-		$selected = ($custom_post->ID == $value) ? ' selected="selected"' : '';
-		$html .= '<option value="' . $custom_post->ID . '"' . $selected . '>' . $custom_post->{$option} . '</option>';
-	}
-	$html .= '</select>';
-
-	return $html;
-}
-
-/**
- * post_type_custom_fields_general_link
- * @desc	General link custom post type
- * @global	object	$post
- */
-function post_type_custom_fields_general_link($id = 'custom_link_url', $label = 'Link URL') {
-	global $post;
-
-	$custom		= get_post_custom($post->ID);
-	$value		= template_get_custom_field($custom, $id, '');
-	
-	echo template_custom_field($id, $id, $label, $value);
-}
-
-/**
- * post_type_custom_fields_update
- * @desc	All custom fields are saved here.
- *			Note: Custom fields must be prefixed with custom_ to be saved automatically
- * @hook	add_action('save_post');
- * @global	object	$post
- * @param	int		$post_id
- * @return	int
- */
-function post_type_custom_fields_update($post_id) {
-	global $post;
-
-	// check user permissions / capabilities
-	if(!empty($_POST['post_type']) && $_POST['post_type'] == 'page') {
-		if(!current_user_can('edit_page', $post_id)) {
-			return $post_id;
-		}
-	}
-	else {
-		if(!current_user_can('edit_post', $post_id)) {
-			return $post_id;
-		}
-	}
-
-	// authentication passed, save data
-	// cycle through each posted meta item and save
-	// by default only saves custom fields which are prefixed with custom_
-	foreach($_POST as $key => $value) {
-		if(strpos($key, 'custom_') !== false) {
-			$current_data	= get_post_meta($post_id, $key, true);
-			$new_data		= !empty($_POST[$key]) ? $_POST[$key] : null;
-
-			if(is_null($new_data)) {
-				delete_post_meta($post_id, $key);
-			}
-			else {
-				// add_post_meta is called if not already set
-				// @see http://codex.wordpress.org/Function_Reference/update_post_meta
-				
-				if(strpos($key, 'custom_date_') !== false) {
-					$new_data = strtotime($new_data); // convert to timestamp
-				}
-				
-				update_post_meta($post_id, $key, $new_data, $current_data);
-			}
-		}
-	}
-
-	return $post_id;
-}
-add_action('save_post',	'post_type_custom_fields_update');
-
-/**
- * is_custom_boolean
- * @desc	Standardises an "is_featured" custom field in to boolean
- * @param	array	$custom
- * @return	boolean
- */
-function is_custom_boolean($custom, $key) {
-	if(!empty($custom[$key][0]) && $custom[$key][0] === 'true') {
-		return true;
-	}
-	return false;
-}
 
 
 /*/////////////////////////////////////////////////////////////////////
@@ -725,19 +487,12 @@ if(!function_exists('template_get_post_type')) {
 				$post_type = 'post';
 			}
 		}
-		
-		if(is_tax('training_category')) {
-			$post_type = 'training';
-		}
 
 		if(!empty($_GET['post_type'])) {
 			$type = strtolower($_GET['post_type']);
 
 			if($type === 'news') {
 				$post_type = 'news';
-			}
-			elseif($type === 'training') {
-				$post_type = 'training';
 			}
 		}
 
@@ -909,4 +664,68 @@ function template_get_template_by_id($page_id) {
 		return template_get_custom_field($custom, 'page_template', '_wp_');
 	}
 	return false;
+}
+
+/**
+ * template_get_nav_item
+ * @desc	Get the page information from the navigation array
+ * @param	string	$key
+ * @param	string	$value
+ * @return	null|int
+ */
+function template_get_nav_item($key, $value = null) {
+	$navigation = template_get_nav();
+
+	if(!empty($navigation[$key])) {
+		if(!is_null($value)) {
+			if(!empty($navigation[$key][$value])) {
+				return $navigation[$key][$value];
+			}
+
+			return null;
+		}
+
+		return $navigation[$key];
+	}
+
+	return null;
+}
+
+/**
+ * template_get_nav_item_id
+ * @desc	Proxy to template_get_nav_item, to get the page_id
+ * @param	string	$key
+ * @return	null|int
+ */
+function template_get_nav_item_id($key) {
+	return template_get_nav_item($key, 'page_id');
+}
+
+/**
+ * site_stylesheet_directory_uri
+ * @desc	Adding CDN URL (if set) and removing the -trade suffix for theme
+ * @param	string	$stylesheet_dir_uri
+ * @param	string	$stylesheet
+ * @param	string	$theme_root_uri
+ * @return	string 
+ */
+function site_stylesheet_directory_uri($stylesheet_dir_uri, $stylesheet, $theme_root_uri) {
+	$uri	= $stylesheet_dir_uri;
+	
+	if(defined('WP_CDN')) {
+		$uri = str_replace(constant('WP_SITEURL'), constant('WP_CDN'), $uri);
+	}
+	
+	return $uri;
+}
+add_action('stylesheet_directory_uri', 'site_stylesheet_directory_uri', 10, 3);
+
+/**
+ * Walker_Nav_Menu
+ * Overwrite end_el function to remove the new line, which causes white space issues with display-inline
+ */
+class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
+	function end_el(&$output, $item, $depth) {
+		$output .= "</li>";
+	}
 }
