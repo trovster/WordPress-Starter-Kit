@@ -73,7 +73,9 @@
 
 			<div id="nav" class="nav">
 				<div class="inner">
+					<?php global $navigation; $navigation = template_get_nav(); ?>
 					<?php get_template_part('nav'); ?>
+					<?php $navigation = null; ?>
 				<!-- end of div .inner -->
 				</div>
 			<!-- end of div #nav -->
