@@ -258,7 +258,9 @@ class Surface_CTP {
 	* @param	array $columns
 	* @return	array
 	*/
-	public function manage_edit_columns($columns) {}
+	public function manage_edit_columns($columns) {
+		return $columns;
+	}
 
 	/**
 	* manage_sortable_columns
