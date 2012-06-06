@@ -3,11 +3,11 @@
 	<ul class="listing hatom">
 	<?php $i = 1; $total = $wp_query->post_count; while(have_posts()): the_post(); ?>
 		<?php
-		$class	 = class_count_attr($i, $total, array('hentry'));
+		$class	 = class_count_attr($i, $total, array());
 		$class[] = (has_post_thumbnail()) ? 'has-thumbnail' : '';
-
-		$custom		= get_post_custom(get_the_ID());
-		$href		= get_custom_link_href($custom);
+		
+		$p			= Surface_CPT_Featured::find_by_id($post->ID);
+		$href		= $p->get_link_href();
 		$link		= $href ? true : false;
 		$class[]	= $href ? 'has-link' : '';
 		?>

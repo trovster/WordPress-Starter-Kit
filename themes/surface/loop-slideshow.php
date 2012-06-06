@@ -3,11 +3,11 @@
 	<ul class="images">
 	<?php $i = 1; $total = $wp_query->post_count; while(have_posts()): the_post(); ?>
 		<?php
-		$class		= class_count_attr($i, $total, array('hentry'));
+		$class		= class_count_attr($i, $total, array());
 		$class[]	= $i === 1 ? 'active' : '';
 
-		$custom		= get_post_custom(get_the_ID());
-		$href		= get_custom_link_href($custom);
+		$p			= Surface_CPT_Slideshow::find_by_id($post->ID);
+		$href		= $p->get_link_href();
 		$link		= $href ? true : false;
 		$class[]	= $href ? 'has-link' : '';
 		?>
