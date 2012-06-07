@@ -729,3 +729,26 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$output .= "</li>";
 	}
 }
+
+/**
+ * gform_tabindex_remove
+ * @desc	Completely removes the tabindex for the gravity forms
+ * @see		http://www.gravityhelp.com/documentation/page/Gform_tabindex
+ * @return	boolean 
+ */
+function gform_tabindex_remove() {
+	return false;
+}
+add_filter('gform_tabindex', 'gform_tabindex_remove');
+
+/**
+ * gform_ajax_spinner_url_remove
+ * @desc	Remove the AJAX spinner
+ * @param	string	$image_src
+ * @param	object	$form
+ * @return	string 
+ */
+function gform_ajax_spinner_url_remove($image_src, $form) {
+    return '';
+}
+add_filter('gform_ajax_spinner_url', 'gform_ajax_spinner_url_remove', 10, 2);
