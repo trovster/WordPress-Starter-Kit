@@ -23,8 +23,6 @@ foreach($functions as $function) {
  */
 add_theme_support('post-thumbnails');
 set_post_thumbnail_size(700, 1000, true); // Normal post thumbnails	
-add_image_size('slideshow', 960, 500, true);
-add_image_size('featured', 240, 150, true);
 
 /**
  * template_get_nav

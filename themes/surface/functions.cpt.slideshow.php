@@ -46,9 +46,21 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 			'supports'				=> array(
 				'title',
 				'thumbnail',
+				'editor',
 				'page-attributes'
 			)
 		));
+		
+		add_image_size('slideshow-image', 1406, 307, true);
+		add_image_size('slideshow-text', 1406, 307, true);
+		
+		if(class_exists('MultiPostThumbnails')) {
+			new MultiPostThumbnails(array(
+				'label'		=> 'Slideshow Text',
+				'id'		=> 'slideshow-text',
+				'post_type'	=> $this->get_post_type()
+			));
+		}
 	}
 
 	/**
@@ -78,15 +90,21 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 		$post = self::find_by_id($id);
 
 		switch($column) {
-			case 'slideshow_image':
-				if(has_post_thumbnail($id)) {
-					echo the_post_thumbnail(array(80, 60));
+			case 'slideshow_background':
+				if($post->has_thumbnail()) {
+					echo $post->get_thumbnail('thumb');
+				}
+				break;
+				
+			case 'slideshow_image_text':
+				if($post->has_thumbnail_text()) {
+					echo $post->get_thumbnail_text('thumb');
 				}
 				break;
 
 			case 'slideshow_link':
 				$link = $post->get_link_href();
-				echo !empty($link) ? sprintf('<a href="%s">%s</a>', $link, self::_short_url($link)) : '-';
+				echo $post->has_link_href() ? sprintf('<a href="%s">%s</a>', $link, self::_short_url($link)) : '-';
 				break;
 		}
 	}
@@ -102,9 +120,10 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 		unset($columns['date']);
 		unset($columns['categories']);
 
-		$columns['slideshow_image']		= 'Image';
-		$columns['slideshow_link']		= 'Link';
-		$columns['date']				= $date;
+		$columns['slideshow_background']		= 'Background';
+		$columns['slideshow_image_text']		= 'Text';
+		$columns['slideshow_link']				= 'Link';
+		$columns['date']						= $date;
 
 		return $columns;
 	}
@@ -117,6 +136,29 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 	 */
 	protected static function _short_url($url, $removeWWW = true) {
 		return preg_replace('#https?://' . ($removeWWW ? '(www\.)?' : '') . '#', '', $url);
+	}
+	
+	/**
+	 * has_thumbnail_text
+	 * @desc	
+	 * @return	boolean
+	 */
+	public function has_thumbnail_text() {
+		return class_exists('MultiPostThumbnails') && MultiPostThumbnails::has_post_thumbnail($this->get_post_type(), 'slideshow-text', $this->post->ID);
+	}
+	
+	/**
+	 * get_thumbnail_text
+	 * @desc	
+	 * @param	string			$size
+	 * @param	string|array	$attr
+	 * @return	string 
+	 */
+	public function get_thumbnail_text($size = 'post-thumbnail', $attr = '') {
+		if($this->has_thumbnail_text()) {
+			return MultiPostThumbnails::get_the_post_thumbnail($this->get_post_type(), 'slideshow-text', $this->post->ID, $size);
+		}
+		return '';
 	}
 }
 
