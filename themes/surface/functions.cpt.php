@@ -153,6 +153,15 @@ class Surface_CTP {
 	}
 
 	/**
+	* has_link_href
+	* @desc	
+	* @return	boolean
+	*/
+	public function has_link_href() {
+		return $this->has_custom_value('page_id') || $this->has_custom_value('link_url');
+	}
+
+	/**
 	* get_link_href
 	* @desc	
 	* @param	mixed	$default
@@ -167,6 +176,29 @@ class Surface_CTP {
 		}
 		
 		return $default;
+	}
+	
+	/**
+	 * has_thumbnail
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_thumbnail() {
+		return has_post_thumbnail($this->post->ID);
+	}
+	
+	/**
+	 * get_thumbnail
+	 * @desc	
+	 * @param	string			$size
+	 * @param	string|array	$attr
+	 * @return	string 
+	 */
+	public function get_thumbnail($size = 'post-thumbnail', $attr = '') {
+		if($this->has_thumbnail()) {
+			return get_the_post_thumbnail($this->post->ID, $size, $attr);
+		}
+		return '';
 	}
 	
 	/**
