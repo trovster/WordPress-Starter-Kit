@@ -228,31 +228,6 @@ function get_second_level_id($post_id, $parent_id=NULL) {
 	return get_top_level_id($post_id, $parent_id, 2);
 }
 
-/**
- * catch_that_image
- * @desc	Finds the first image in post and returns an empty if no image
- * @global	object	$post
- * @return	string
- */
-function catch_that_image() {
-	global $post;
-
-	$first_img = '';
-
-	ob_start();
-	ob_end_clean();
-
-	$output		= preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
-	$first_img	= $matches [1][0];
-
-	if(empty($first_img)){
-		$first_img = '';
-	}
-
-	return $first_img;
-}
-
-
 
 /*/////////////////////////////////////////////////////////////////////
 General Template Functions
