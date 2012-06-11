@@ -217,9 +217,9 @@ form {
 	}
 	form div.text input,
 	form textarea {
-		width: 480px; height: 20px;
+		width: 350px; height: 20px;
 		line-height: 20px;
-		padding: 10px 15px;
+		padding: 3px 5px;
 		color: #555;
 		background: #fff;
 		border: 1px solid #a5a5a5;
