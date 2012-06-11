@@ -6,18 +6,19 @@
 		$class	 = class_count_attr($i, $total, array());
 		$class[] = (has_post_thumbnail()) ? 'has-thumbnail' : '';
 		
-		$p			= Surface_CPT_Featured::find_by_id($post->ID);
-		$href		= $p->get_link_href();
-		$link		= $href ? true : false;
-		$class[]	= $href ? 'has-link' : '';
+		$featured	= Surface_CPT_Featured::find_by_id($featuredost->ID);
+		$class[]	= $featured->has_link_href() ? 'has-link' : '';
 		?>
 		<li <?php post_class(array_filter($class)); ?>>
-			<?php if($link === true): ?><a href="<?php echo $href; ?>" rel="bookmark" class="url"><?php endif; ?>
+			<?php if($featured->has_link_href()): ?><a href="<?php echo $featured->get_link_href(); ?>" rel="bookmark" class="url"><?php endif; ?>
 			<h3 class="entry-title"><?php the_title(); ?></h3>
 			<div class="photo">
 				<?php the_post_thumbnail('featured'); ?>
 			</div>
-			<?php if($link === true): ?></a><?php endif; ?>
+			<div class="entry-content">
+				<?php the_content(); ?>
+			</div>
+			<?php if($featured->has_link_href()): ?></a><?php endif; ?>
 		</li>
 	<?php $i++; endwhile; ?>
 	</ul>
