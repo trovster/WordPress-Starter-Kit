@@ -5,7 +5,7 @@
 <div id="content-primary">
 	
 	<div class="header">
-		<p>Displaying search results for: <strong><?php echo get_search_query(); ?></strong></p>
+		<p><?php _e('Displaying search results for'); ?>: <strong><?php echo get_search_query(); ?></strong></p>
 	</div>
 	
 	<div id="search" class="hatom archive">

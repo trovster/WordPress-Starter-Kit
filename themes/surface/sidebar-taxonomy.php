@@ -15,7 +15,7 @@ $categories = wp_list_categories($options);
 ?>
 <?php if(!empty($categories)): ?>
 <div id="taxonomy-categories" class="section taxonomy">
-	<h3>Categories <span class="total"><?php echo $total; ?></span></h3>
+	<h3><?php _e('Categories'); ?> <span class="total"><?php echo $total; ?></span></h3>
 	<ul>
 		<?php echo $categories; ?>
 	</ul>
@@ -40,7 +40,7 @@ $tags		= wp_list_categories($options);
 ?>
 <?php if(!empty($tags)): ?>
 <div id="taxonomy-tags" class="section taxonomy">
-	<h3>Tags <span class="total"><?php echo $total; ?></span></h3>
+	<h3><?php _e('Tags'); ?> <span class="total"><?php echo $total; ?></span></h3>
 	<ul>
 		<?php echo $tags; ?>
 	</ul>

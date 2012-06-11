@@ -16,7 +16,7 @@ Follow variables are useable :
 
 <?php if(!empty($galleries)): ?>
 <div class="galleries">
-	<h1>Select a Gallery</h1>
+	<h1><?php _e('Select a Gallery'); ?></h1>
 	
 	<ul class="images">
 	<?php $total = count($galleries); $i = 1; foreach($galleries as $gallery): ?>

@@ -18,7 +18,7 @@ else {
 
 <?php if(!empty($archives)): ?>
 <div id="archive" class="section archive">
-	<h3>Archive</h3>
+	<h3><?php _e('Archive'); ?></h3>
 	
 	<div class="nav">
 		<?php echo $archives; ?>

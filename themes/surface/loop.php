@@ -19,12 +19,12 @@
 			
 		<div class="entry-meta">
 			<?php if(!($categories instanceof WP_Error) && !empty($categories)): ?>
-			<p class="entry-categories">Categories: <?php echo $categories; ?></p>
+			<p class="entry-categories"><?php _e('Categories'); ?>: <?php echo $categories; ?></p>
 			<?php endif; ?>
 			<?php if(!($tags instanceof WP_Error) && !empty($tags)): ?>
-			<p class="entry-tags">Tags: <?php echo $tags; ?></p>
+			<p class="entry-tags"><?php _e('Tags'); ?>: <?php echo $tags; ?></p>
 			<?php endif; ?>
-			<p class="entry-date date">Posted on <span class="value"><?php echo get_the_date(); ?></span></p>
+			<p class="entry-date date"><?php _e('Posted on'); ?> <span class="value"><?php echo get_the_date(); ?></span></p>
 		<!-- end of div .entry-meta -->
 		</div>
 

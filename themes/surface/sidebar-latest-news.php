@@ -1,5 +1,5 @@
  <div id="latest-news" class="section">
-	<h2>Latest News</h2>
+	<h2><?php _e('Latest News'); ?></h2>
 	
 	<?php
 	$setup = array(

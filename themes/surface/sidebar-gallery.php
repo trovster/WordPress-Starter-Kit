@@ -1,7 +1,5 @@
 <div id="content-secondary">
 	
-	<p class="button"><a href="/gallery"><span>Back to list</span></a></p>
-	
 	<?php if(class_exists('NextGEN_shortcodes')): ?>
 	<?php
 	// make sure this plays nicely with the gallery already shown
