@@ -6,7 +6,7 @@
 		$class	 = class_count_attr($i, $total, array());
 		$class[] = (has_post_thumbnail()) ? 'has-thumbnail' : '';
 		
-		$featured	= Surface_CPT_Featured::find_by_id($featuredost->ID);
+		$featured	= Surface_CPT_Featured::find_by_id($post->ID);
 		$class[]	= $featured->has_link_href() ? 'has-link' : '';
 		?>
 		<li <?php post_class(array_filter($class)); ?>>

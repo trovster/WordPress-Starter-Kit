@@ -7,7 +7,7 @@
 			$class		= class_count_attr($i, $total, array());
 			$class[]	= $i === 1 ? 'active' : '';
 
-			$slideshow	= Surface_CPT_Slideshow::find_by_id($slideshowost->ID);
+			$slideshow	= Surface_CPT_Slideshow::find_by_id($post->ID);
 			$class[]	= $slideshow->has_link_href() ? 'has-link' : '';
 			
 			$animations	 = 0;
