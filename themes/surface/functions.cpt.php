@@ -200,6 +200,29 @@ class Surface_CTP {
 		}
 		return '';
 	}
+
+	/**
+	 * get_single_taxonomy
+	 * @desc	
+	 * @param	string	$suffix
+	 * @param	string	$default
+	 * @param	boolean	$string
+	 * @return	string|object 
+	 */
+	public function get_single_taxonomy($taxonomy, $default = '', $string = false) {
+		$taxonomies	= get_the_terms($id, $taxonomy);
+		$return		= (object) array(
+			'term_id'	=> 0,
+			'name'		=> $default,
+			'slug'		=> sanitize_title($default)
+		);
+
+		if(!empty($taxonomies)) {
+			$return = array_shift($taxonomies);
+		}
+
+		return ($string === true) ? $return->name : $return;
+	}
 	
 	/**
 	 * register_post_type 
