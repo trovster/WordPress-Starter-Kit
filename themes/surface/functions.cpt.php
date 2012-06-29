@@ -204,12 +204,13 @@ class Surface_CTP {
 	/**
 	 * get_single_taxonomy
 	 * @desc	
-	 * @param	string	$suffix
+	 * @param	int		$id
+	 * @param	string	$taxonomy
 	 * @param	string	$default
 	 * @param	boolean	$string
 	 * @return	string|object 
 	 */
-	public function get_single_taxonomy($taxonomy, $default = '', $string = false) {
+	public function get_single_taxonomy($id, $taxonomy, $default = '', $string = false) {
 		$taxonomies	= get_the_terms($id, $taxonomy);
 		$return		= (object) array(
 			'term_id'	=> 0,
