@@ -226,6 +226,29 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * get_taxonomy_type
+	 * @desc	Return a flat array of taxonomy values based on type (name, slug, term_id)
+	 *			self::get_taxonomy_type(get_the_terms($id), 'slug');
+	 * @param	array	$taxonomy
+	 * @param	string	$type
+	 * @return	array
+	 */
+	public static function get_taxonomy_type($taxonomy, $type) {
+		$ids = array();
+		if(is_array($taxonomy)) {
+			foreach($taxonomy as $item) {
+				if(is_array($item) && array_key_exists($type, $item)) {
+					$ids[] = $item[$type];
+				}
+				elseif(is_object($item)) {
+					$ids[] = $item->{$type};
+				}
+			}
+		}
+		return $ids;
+	}
+	
+	/**
 	 * register_post_type 
 	 */
 	public function register_post_type() {}
