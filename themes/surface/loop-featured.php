@@ -4,17 +4,19 @@
 	<?php $i = 1; $total = $wp_query->post_count; while(have_posts()): the_post(); ?>
 		<?php
 		$class	 = class_count_attr($i, $total, array());
-		$class[] = (has_post_thumbnail()) ? 'has-thumbnail' : '';
 		
 		$featured	= Surface_CPT_Featured::find_by_id($post->ID);
 		$class[]	= $featured->has_link_href() ? 'has-link' : '';
+		$class[]	= $featured->has_thumbnail() ? 'has-thumbnail' : '';
 		?>
 		<li <?php post_class(array_filter($class)); ?>>
 			<?php if($featured->has_link_href()): ?><a href="<?php echo $featured->get_link_href(); ?>" rel="bookmark" class="url"><?php endif; ?>
 			<h3 class="entry-title"><?php the_title(); ?></h3>
+			<?php if($featured->has_thumbnail()): ?>
 			<div class="photo">
-				<?php the_post_thumbnail('featured'); ?>
+				<?php echo $featured->get_thumbnail('featured'); ?>
 			</div>
+			<?php endif; ?>
 			<div class="entry-content">
 				<?php the_content(); ?>
 			</div>
