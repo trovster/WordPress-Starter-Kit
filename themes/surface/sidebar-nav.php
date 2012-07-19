@@ -5,6 +5,7 @@ $pages			= wp_list_pages(array(
 	'echo'		=> 0,
 	'depth'		=> 1,
 	'child_of'	=> $top_level_id !== 0 ? $top_level_id : -1,
+	'walker'	=> new Walker_Page_Active,
 ));
 ?>
 <?php if(!empty($pages)): ?>

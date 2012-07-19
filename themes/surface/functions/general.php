@@ -696,16 +696,6 @@ function site_stylesheet_directory_uri($stylesheet_dir_uri, $stylesheet, $theme_
 add_action('stylesheet_directory_uri', 'site_stylesheet_directory_uri', 10, 3);
 
 /**
- * Walker_Nav_Menu
- * Overwrite end_el function to remove the new line, which causes white space issues with display-inline
- */
-class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
-	function end_el(&$output, $item, $depth) {
-		$output .= "</li>";
-	}
-}
-
-/**
  * gform_tabindex_remove
  * @desc	Completely removes the tabindex for the gravity forms
  * @see		http://www.gravityhelp.com/documentation/page/Gform_tabindex
@@ -754,3 +744,77 @@ function template_make_link_relative() {
 	}
 }
 add_filter('init', 'template_make_link_relative');
+
+/**
+ * Walker_Nav_Menu
+ * Overwrite end_el function to remove the new line, which causes white space issues with display-inline
+ */
+class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
+	function end_el(&$output, $item, $depth) {
+		$output .= '</li>';
+	}
+}
+
+/**
+ * Walker_Page_Active
+ * @desc	
+ */
+class Walker_Page_Active extends Walker_Page {
+
+	/**
+	 * start_el
+	 * @param	string	$output			Passed by reference. Used to append additional content.
+	 * @param	object	$page			Page data object.
+	 * @param	int		$depth			Depth of page. Used for padding.
+	 * @param	int		$current_page	Page ID.
+	 * @param	array	$args
+	 */
+	function start_el(&$output, $page, $depth, $args, $current_page) {
+		if ( $depth )
+			$indent = str_repeat("\t", $depth);
+		else
+			$indent = '';
+
+		extract($args, EXTR_SKIP);
+		$css_class = array('page_item', 'page-item-'.$page->ID);
+		if ( !empty($current_page) ) {
+			$_current_page = get_page( $current_page );
+			_get_post_ancestors($_current_page);
+			if ( isset($_current_page->ancestors) && in_array($page->ID, (array) $_current_page->ancestors) ) {
+				$css_class[] = 'current_page_ancestor';
+			}
+			if ( $page->ID == $current_page ) {
+				$css_class[] = 'current_page_item';
+				$css_class[] = 'shown';
+				$css_class[] = 'active';
+			}
+			elseif ( $_current_page && $page->ID == $_current_page->post_parent ) {
+				$css_class[] = 'current_page_parent';
+				$css_class[] = 'shown';
+				$css_class[] = 'active';
+			}
+		} elseif ( $page->ID == get_option('page_for_posts') ) {
+			$css_class[] = 'current_page_parent';
+			$css_class[] = 'shown';
+			$css_class[] = 'active';
+		}
+		
+		if(template_is_section($page->ID)) {
+			$css_class[] = 'active';
+			$css_class[] = 'current_page_item';
+		}
+
+		$css_class = implode( ' ', apply_filters( 'page_css_class', $css_class, $page, $depth, $args, $current_page ) );
+
+		$output .= $indent . '<li class="' . $css_class . '"><a href="' . get_permalink($page->ID) . '">' . $link_before . apply_filters( 'the_title', $page->post_title, $page->ID ) . $link_after . '</a>';
+		
+		if ( !empty($show_date) ) {
+			if ( 'modified' == $show_date )
+				$time = $page->post_modified;
+			else
+				$time = $page->post_date;
+
+			$output .= " " . mysql2date($date_format, $time);
+		}
+	}
+}
