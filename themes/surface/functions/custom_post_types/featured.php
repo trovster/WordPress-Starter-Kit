@@ -50,7 +50,7 @@ class Surface_CPT_Featured extends Surface_CTP {
 			)
 		));
 		
-		add_image_size($this->get_post_type(), 240, 150, true);
+		add_image_size($this->get_post_type() . '-image', 240, 150, true);
 	}
 
 	/**

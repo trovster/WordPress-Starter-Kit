@@ -51,13 +51,13 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 			)
 		));
 		
-		add_image_size('slideshow-image', 1406, 307, true);
-		add_image_size('slideshow-text', 1406, 307, true);
+		add_image_size($this->get_post_type() . '-image', 1406, 307, true);
+		add_image_size($this->get_post_type() . '-text', 1406, 307, true);
 		
 		if(class_exists('MultiPostThumbnails')) {
 			new MultiPostThumbnails(array(
 				'label'		=> 'Slideshow Text',
-				'id'		=> 'slideshow-text',
+				'id'		=> $this->get_post_type() . '-text',
 				'post_type'	=> $this->get_post_type()
 			));
 		}
@@ -144,7 +144,7 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 	 * @return	boolean
 	 */
 	public function has_thumbnail_text() {
-		return class_exists('MultiPostThumbnails') && MultiPostThumbnails::has_post_thumbnail($this->get_post_type(), 'slideshow-text', $this->post->ID);
+		return class_exists('MultiPostThumbnails') && MultiPostThumbnails::has_post_thumbnail($this->get_post_type(), $this->get_post_type() . '-text', $this->post->ID);
 	}
 	
 	/**
@@ -156,7 +156,7 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 	 */
 	public function get_thumbnail_text($size = 'post-thumbnail', $attr = '') {
 		if($this->has_thumbnail_text()) {
-			return MultiPostThumbnails::get_the_post_thumbnail($this->get_post_type(), 'slideshow-text', $this->post->ID, $size);
+			return MultiPostThumbnails::get_the_post_thumbnail($this->get_post_type(), $this->get_post_type() . '-text', $this->post->ID, $size);
 		}
 		return '';
 	}

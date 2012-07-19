@@ -19,13 +19,13 @@
 				
 				<?php if($slideshow->has_thumbnail()): ?>
 				<div class="photo image">
-					<?php echo $slideshow->get_thumbnail('slideshow-image'); ?>
+					<?php echo $slideshow->get_thumbnail($slideshow->get_post_type() . '-image'); ?>
 				</div>
 				<?php endif; ?>
 					
 				<?php if($slideshow->has_thumbnail_text()): ?>
 				<div class="photo text">
-					<?php echo $slideshow->get_thumbnail_text('slideshow-text'); ?>
+					<?php echo $slideshow->get_thumbnail_text($slideshow->get_post_type() . '-text'); ?>
 				</div>
 				<?php endif; ?>
 				

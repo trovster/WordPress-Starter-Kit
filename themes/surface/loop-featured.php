@@ -14,7 +14,7 @@
 			<h3 class="entry-title"><?php the_title(); ?></h3>
 			<?php if($featured->has_thumbnail()): ?>
 			<div class="photo">
-				<?php echo $featured->get_thumbnail('featured'); ?>
+				<?php echo $featured->get_thumbnail($featured->get_post_type() . '-image'); ?>
 			</div>
 			<?php endif; ?>
 			<div class="entry-content">
