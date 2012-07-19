@@ -1,9 +1,10 @@
 <?php $i = 1; $total = $wp_query->post_count; while(have_posts()): the_post(); ?>
 	<?php
 	$class		= class_count_attr($i, $total, array());
-	$class[]	= (has_post_thumbnail()) ? 'has-thumbnail' : '';
+
+	$post		= Surface_CPT_Post::find_by_id($post->ID);
+	$class[]	= $post->has_thumbnail() ? 'has-thumbnail' : '';
 	
-	$type		= get_post_type();
 	$tags		= get_the_term_list(0, 'post_tag', '', ', ',  '');
 	$categories	= get_the_term_list(0, 'category', '', ', ',  '');
 	$class[]	= !($tags instanceof WP_Error) && !empty($tags) ? 'has-tags' : 'no-tags';
@@ -14,7 +15,7 @@
 		<?php if(is_single()): ?>
 			<h1 class="entry-title"><?php the_title(); ?></h1>
 		<?php else: ?>
-			<h2 class="entry-title"><a href="<?php the_permalink(); ?>" class="url" rel="bookmark"><?php the_title(); ?></a></h2>
+			<h2 class="entry-title"><a href="<?php echo $post->get_link_href(); ?>" class="url" rel="bookmark"><?php the_title(); ?></a></h2>
 		<?php endif; ?>
 			
 		<div class="entry-meta">

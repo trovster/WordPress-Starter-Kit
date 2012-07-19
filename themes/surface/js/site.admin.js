@@ -29,7 +29,7 @@ App = (function (App, $) {
 			finalize: function () {
 				var elements	= {
 						show: {
-							'page-two-column.php':		$('#secondary_column')
+							'page-two-column.php':		$('#page_secondary_content')
 						},
 						hide: {
 							'front-page.php':			$('#postexcerpt'),

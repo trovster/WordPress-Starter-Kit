@@ -16,6 +16,27 @@ class Surface_CPT_Page extends Surface_CTP {
 	}
 
 	/**
+	* custom_field_boxes
+	* @desc		Assigning the custom fields to events
+	*/
+	public function custom_field_boxes() {
+		add_meta_box($this->get_post_type() . '_secondary_content', 'Secondary Content', array(&$this, 'custom_field_box_secondary_content'), $this->get_post_type(), 'normal', 'high');
+	}
+	
+	/**
+	 * custom_field_box_secondary_content
+	 * @param	object	$post 
+	 */
+	public function custom_field_box_secondary_content($post) {
+		$post	= self::find_by_id($post->ID);
+		$id		= 'secondary_content';
+		$name	= 'custom_' . $id;
+		$value	= $post->custom_value($id);
+		
+		echo self::_custom_field_editor($id, $name, $value);
+	}
+
+	/**
 	* has_link_href
 	* @desc	
 	* @return	boolean

@@ -9,10 +9,7 @@
 	
 	<?php while(have_posts()): the_post(); ?>
 	
-	<?php
-	$custom					= get_post_custom($post->ID);
-	$secondary_column		= template_get_custom_field($custom, 'secondary_column');
-	?>
+	<?php $page	= Surface_CPT_Page::find_by_id($post->ID); ?>
 	
 	<div class="hentry">
 		
@@ -22,9 +19,9 @@
 			<?php the_content(); ?>
 		</div>
 		
-		<?php if(!empty($secondary_column)): ?>
+		<?php if(!empty($page->has_custom_value('secondary_column'))): ?>
 		<div class="column column-secondary">
-			<?php echo apply_filters('the_content', $secondary_column); ?>
+			<?php echo apply_filters('the_content', $page->custom_value('secondary_column')); ?>
 		<!-- end of div .column-secondary -->
 		</div>
 		<?php endif; ?>
