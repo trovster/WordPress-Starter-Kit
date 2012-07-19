@@ -9,10 +9,18 @@ Version: 0.0.1
 */
 
 // include all the function components
-$functions = glob(dirname(__FILE__) . '/functions.*.php');
+$functions = glob(dirname(__FILE__) . '/functions/*.php');
 foreach($functions as $function) {
 	if(!in_array(basename($function), array('function.php'))) {
 		require_once $function;
+	}
+}
+
+// include all the custom post types
+$cpts = glob(dirname(__FILE__) . '/functions/custom_post_types/*.php');
+foreach($cpts as $cpt) {
+	if(!in_array(basename($cpt), array('_cpt.php'))) {
+		require_once $cpt;
 	}
 }
 
@@ -209,7 +217,7 @@ function site_register_javascript_css() {
 		// javascript
 		wp_register_script('jquery', get_stylesheet_directory_uri() . '/js/jquery/1.7.2.js', false, '1.7.2', true);
 		wp_register_script('plugin.cycle', get_stylesheet_directory_uri() . '/js/jquery/plugin/cycle-2.99.js', false, '2.99', true);
-		wp_register_script('plugin.fancybox', get_stylesheet_directory_uri() . '/js/jquery/plugin/fancybox-2.0.4.js', false, '2.0.4', true);
+		wp_register_script('plugin.fancybox', get_stylesheet_directory_uri() . '/js/jquery/plugin/fancybox-2.0.6.js', false, '2.0.6', true);
 		wp_register_script('app', get_stylesheet_directory_uri() . '/js/app.js', array('jquery'), '1.0', true);
 		wp_register_script('site', get_stylesheet_directory_uri() . '/js/site.js', array('jquery', 'app'), '1.0', true);
 		

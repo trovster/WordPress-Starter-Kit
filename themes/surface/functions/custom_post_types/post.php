@@ -1,4 +1,4 @@
-<?php require_once dirname(__FILE__) . '/functions.cpt.php';
+<?php require_once dirname(__FILE__) . '/_cpt.php';
 
 class Surface_CPT_Post extends Surface_CTP {
 	
