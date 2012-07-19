@@ -8,7 +8,7 @@ jQuery.noConflict();
  * @file	app.js
  * @desc	Create the main application which sets up the fire events
  */
-var App = (function (App, $) {
+var App = (function (App, $, undefined) {
 
 	App	= {
 		util:	{
@@ -77,6 +77,18 @@ var App = (function (App, $) {
 		},
 		hash: function (string) {
 			return string.substring(string.indexOf('#') + 1);
+		},
+		getCssStyle: function (ruleSelector, cssprop) {
+			for (var c = 0, lenC = document.styleSheets.length; c < lenC; c++) {
+				var rules = document.styleSheets[c].cssRules;
+				for (var r = 0, lenR = rules.length; r < lenR; r++) {
+					var rule = rules[r];
+					if (rule.selectorText == ruleSelector && rule.style) {
+						return rule.style[cssprop]; // rule.cssText;
+					}
+				}
+			}
+			return null;
 		}
 	};
 

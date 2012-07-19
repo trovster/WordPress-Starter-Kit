@@ -13,9 +13,16 @@ Version: 0.0.1
  * @desc	Adds custom CSS and JavaScript to the CMS
  */
 function surface_admin_custom_js_css() {
-	// custom JS and CSS
-	wp_enqueue_script('app', get_stylesheet_directory_uri() . '/js/app.js', array('jquery'), null, true);
-	wp_enqueue_script('custom-admin-js', get_stylesheet_directory_uri() . '/js/site.admin.js', array('jquery', 'app'), null, true);
+	wp_register_script('app', get_stylesheet_directory_uri() . '/js/app/app.js', array('jquery'), '1.0', true);
+	wp_register_script('app.options', get_stylesheet_directory_uri() . '/js/app/options.js', array('jquery', 'app'), '1.0', true);
+	wp_register_script('app.models', get_stylesheet_directory_uri() . '/js/app/models.js', array('jquery', 'app'), '1.0', true);
+	wp_register_script('app.run', get_stylesheet_directory_uri() . '/js/app/run.admin.js', array('jquery', 'app'), '1.0', true);
+	
+	wp_enqueue_script('app');
+	wp_enqueue_script('app.options');
+	wp_enqueue_script('app.models');
+	wp_enqueue_script('app.run');
+	
 	wp_enqueue_style('custom-admin-css', get_stylesheet_directory_uri() . '/css/admin.css', array(), null);
 }
 add_action('admin_init', 'surface_admin_custom_js_css');

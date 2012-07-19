@@ -1,22 +1,8 @@
 'use strict';
 
-/*global window, document, console, jQuery, App:true, google, _gaq */
+/*global window, document, console, Modernizr, jQuery, App:true, google, _gaq, debug */
 
-/**
- * @desc Specific application options
- */
-App = (function (App, $) {
-
-	App.options = $.extend({}, App.options, {
-		timeout: [],
-		className: {
-			active:	'active'
-		}
-	});
-
-	return App;
-
-}(typeof App === 'object' ? App : {}, jQuery));
+/*jslint plusplus: true, nomen: true */
 
 /**
  * @desc Specific application page autoload methods
