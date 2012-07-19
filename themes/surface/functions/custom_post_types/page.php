@@ -11,6 +11,10 @@ class Surface_CPT_Page extends Surface_CTP {
 	*/
 	public function __construct($options = array()) {
 		parent::__construct($options);
+		
+		if($options === 'setup') {
+			add_action('manage_pages_custom_column', array(&$this, 'manage_columns'), 10, 2);
+		}
 	
 		return $this;
 	}
@@ -34,6 +38,26 @@ class Surface_CPT_Page extends Surface_CTP {
 		$value	= $post->custom_value($id);
 		
 		echo self::_custom_field_editor($id, $name, $value);
+	}
+	
+	/**
+	* manage_edit_columns
+	* @param	array $columns
+	* @return	array
+	*/
+	public function manage_edit_columns($columns) {
+		$date		= $columns['date'];
+		$author		= $columns['author'];
+		
+		unset($columns['author']);
+		unset($columns['comments']);
+		unset($columns['date']);
+		unset($columns['categories']);
+
+		$columns['author']					= $author;
+		$columns['date']					= $date;
+
+		return $columns;
 	}
 
 	/**
