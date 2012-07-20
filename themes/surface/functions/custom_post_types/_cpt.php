@@ -388,16 +388,25 @@ class Surface_CTP {
 	 * @return	string 
 	 */
 	protected static function _custom_field_html($id, $name, $label, $value, $class = '', $type = null) {
-		$type  = is_null($type) ? 'text' : $type;
-
-		$html  = '';
-		$html .= '<p><label for="' . $id . '">' . $label . ':</label><br />' . "\r\n";
+		$type	= is_null($type) ? 'text' : $type;
+		$html	= '';
 
 		if($type === 'textarea') {
-			$html .= '<textarea style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . '>' . $value . '</textarea></p>' . "\r\n";
+			$html .= '<p><label for="' . $id . '">' . $label . ':</label><br />' . "\r\n";
+			$html .= "\t" . '<textarea style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . '>' . $value . '</textarea>';
+			$html .= '</p>' . "\r\n";
+		}
+		elseif($type === 'checkbox') {
+			$html .= '<p class="checkbox" style="padding-top: 5px;">';
+			$html .= '<input type="hidden" name="' . $name . '" value="false" />';
+			$html .= '<input style="margin-right: 5px; margin-top: 0;" id="' . $id . '" value="true" type="' . $type . '" name="' . $name . '"' . ($value === true ? ' checked="checked"' : '') . ' />';
+			$html .= '<label for="' . $id . '" style="font-weight: bold;">' . $label . '</label>';
+			$html .= '</p>';
 		}
 		else {
-			$html .= '<input style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . ' /></p>' . "\r\n";
+			$html .= '<p><label for="' . $id . '">' . $label . ':</label><br />' . "\r\n";
+			$html .= "\t" . '<input style="width:90%;" type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"' . (!empty($class) ? ' class="' . $class . '"' : '') . ' />';
+			$html .= '</p>' . "\r\n";
 		}
 
 		return $html;
