@@ -93,6 +93,9 @@ class Surface_CTP {
 	 * @return	string 
 	 */
 	public function get_post_type() {
+		if(!empty($this->_post)) {
+			return $this->_post->post_type;
+		}
 		return (string) $this->_post_type;
 	}
 	
