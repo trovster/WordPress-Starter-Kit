@@ -275,6 +275,13 @@ class Surface_CTP {
 		elseif(!empty($query->query_vars['meta_query']) && !is_array($query->query_vars['meta_query'])) {
 			$query->query_vars['meta_query'] = array($query->query_vars['meta_query']);
 		}
+
+		if(empty($query->query_vars['tax_query'])) {
+			$query->query_vars['tax_query'] = array();
+		}
+		elseif(!empty($query->query_vars['tax_query']) && !is_array($query->query_vars['tax_query'])) {
+			$query->query_vars['tax_query'] = array($query->query_vars['tax_query']);
+		}
 		
 		if($update) {
 			$query->set('post_type', $this->get_post_type());
