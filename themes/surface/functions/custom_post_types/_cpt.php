@@ -11,7 +11,8 @@ Version: 0.0.1
 class Surface_CTP {
 	
 	protected $_post_type,
-			  $_custom		= null;
+			  $_custom		= null,
+			  $_attachments	= null;
 
 	/**
 	* __construct()
@@ -202,6 +203,67 @@ class Surface_CTP {
 			return get_the_post_thumbnail($this->post->ID, $size, $attr);
 		}
 		return '';
+	}
+	
+	/**
+	 * get_date
+	 * @desc
+	 * @param	string		$d
+	 * @return	string|null 
+	 */
+	public function get_date($d = '') {
+		return get_the_date($d);
+	}
+	
+	/**
+	 * has_attachments
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_attachments() {
+		if(function_exists('attachments_get_attachments')) {
+			$this->set_attachments();
+			
+			return count($this->_attachments) > 0 ? true : false;
+		}
+		return false;
+	}
+	
+	/**
+	 * set_attachments
+	 * @desc	
+	 * @return	Object 
+	 */
+	public function set_attachments() {
+		if(function_exists('attachments_get_attachments')) {
+			$this->_attachments = attachments_get_attachments($this->post->ID);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * get_attachments
+	 * @desc	Return the HTML of the image attachments
+	 * @return	string
+	 */
+	public function get_attachments() {
+		$lis	= array();
+		
+		if($this->has_attachments()) {
+			$total	= count($this->_attachments);
+			$i		= 1;
+			foreach($this->_attachments as $attachment) {
+				$class	 = class_count_attr($i, $total);
+				$class[] = $i === 1 ? 'active' : '';
+				$class	 = array_filter($class);
+
+				$lis[] = '<li' . template_add_class($class) . '><img src="' . $attachment['location'] . '" alt="' . __($attachment['title']) . '" title="" /></li>';
+				$i++;
+			}
+		}
+		
+		return count($lis) > 0 ? '<ul>' . implode("\r\n", $lis) . '</ul>' : '';
 	}
 
 	/**
