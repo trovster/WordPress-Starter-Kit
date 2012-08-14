@@ -2,7 +2,10 @@
 
 class Surface_CPT_Post extends Surface_CTP {
 	
-     protected $_post_type = 'post';
+	protected $_post_type = 'post';
+	 
+	public $categories	= null,
+		   $tags		= null;
 
 	/**
 	* __construct()
@@ -32,6 +35,92 @@ class Surface_CPT_Post extends Surface_CTP {
 	*/
 	public function get_link_href($default = false) {
 		return get_permalink($this->ID);
+	}
+	
+	/**
+	 * has_categories
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_categories() {
+		$this->get_categories();
+		
+		if(!empty($this->categories)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * get_categories
+	 * @desc	
+	 * @return	boolean|array
+	 */
+	public function get_categories() {
+		if(!is_null($this->categories)) {
+			return $this->categories;
+		}
+		else {
+			$this->categories = get_the_terms($this->post->ID, 'category');
+			return $this->categories;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * get_category
+	 * @desc	
+	 * @param	string	$default
+	 * @param	boolean	$string
+	 * @return	string|object 
+	 */
+	public function get_category($default = '', $string = false) {
+		return $this->get_single_taxonomy($this->post->ID, 'category', $default, $string);
+	}
+	
+	/**
+	 * has_tags
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_tags() {
+		$this->get_skills();
+		
+		if(!empty($this->tags)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * get_tags
+	 * @desc	
+	 * @return	boolean|array
+	 */
+	public function get_tags() {
+		if(!is_null($this->tags)) {
+			return $this->tags;
+		}
+		else {
+			$this->tags = get_the_terms($this->post->ID, 'post_tag');
+			return $this->tags;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * get_tag
+	 * @desc	
+	 * @param	string	$default
+	 * @param	boolean	$string
+	 * @return	string|object 
+	 */
+	public function get_tag($default = '', $string = false) {
+		return $this->get_single_taxonomy($this->post->ID, 'post_tag', $default, $string);
 	}
 }
 
