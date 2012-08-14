@@ -70,6 +70,15 @@ class Surface_CPT_Post extends Surface_CTP {
 	}
 	
 	/**
+	 * has_category
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_category() {
+		return $this->has_categories();
+	}
+	
+	/**
 	 * get_category
 	 * @desc	
 	 * @param	string	$default
@@ -86,13 +95,22 @@ class Surface_CPT_Post extends Surface_CTP {
 	 * @return	boolean 
 	 */
 	public function has_tags() {
-		$this->get_skills();
+		$this->get_tags();
 		
 		if(!empty($this->tags)) {
 			return true;
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * has_tag
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_tag() {
+		return $this->has_tags();
 	}
 	
 	/**
