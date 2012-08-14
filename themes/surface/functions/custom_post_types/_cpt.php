@@ -361,6 +361,33 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * get_taxonomy_list
+	 * @desc	Similar behaviour to get_the_term_list, but expects the terms and outputs a list by default
+	 * @param	array	
+	 * @param	string	$before
+	 * @param	string	$sep
+	 * @param	string	$after
+	 * @return	string
+	 */
+	public static function get_taxonomy_list($terms, $before = '<ul class="taxonomy"><li>', $sep = '</li><li>', $after = '</li></ul>') {
+		if (is_wp_error($terms)) {
+			return $terms;
+		}
+			
+		if(empty($terms)) {
+			return false;
+		}
+			
+		foreach($terms as $term) {
+			$term_links[] = '<a href="' . esc_url(get_term_link($term)) . '" rel="tag">' . $term->name . '</a>';
+		}
+
+		$term_links = apply_filters('term_links-' . $term->taxonomy, $term_links);
+
+		return $before . join($sep, $term_links) . $after;
+	}
+	
+	/**
 	 * register_post_type 
 	 */
 	public function register_post_type() {}
