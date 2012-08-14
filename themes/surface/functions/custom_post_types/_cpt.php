@@ -216,6 +216,53 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * get_the_excerpt
+	 * @desc	
+	 * @param	int		$length
+	 * @param	string	$append
+	 * @return	string 
+	 */
+	public function get_the_excerpt($length = 12, $append = '…') {
+		$excerpt = $this->post->post_excerpt;
+		
+		if(is_numeric($length)) {
+			$excerpt = self::truncate_words($excerpt, $length, $append);
+		}
+		
+		$excerpt = apply_filters('get_the_excerpt', $excerpt);
+		
+		return $excerpt;
+	}
+	
+	/**
+	 * the_excerpt
+	 * @desc	
+	 * @param	int		$length
+	 * @param	string	$append
+	 * @return	string 
+	 */
+	public function the_excerpt($length = 12, $append = '…') {
+		echo apply_filters('the_excerpt', $this->get_the_excerpt($length, $append));
+	}
+
+	/**
+	* truncate_words
+	* @desc
+	* @param	string	$words
+	* @param	int		$limit
+	* @param	int		$append
+	* @return	string 
+	*/
+	public static function truncate_words($words, $limit, $append = ' …') {
+		$limit = $limit + 1;
+		$words = explode(' ', $words, $limit);
+
+		array_pop($words);
+
+		return implode(' ', $words) . $append;
+	}
+	
+	/**
 	 * has_attachments
 	 * @desc	
 	 * @return	boolean 
