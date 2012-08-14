@@ -86,7 +86,7 @@ class Surface_CPT_Post extends Surface_CTP {
 	 * @return	string|object 
 	 */
 	public function get_category($default = '', $string = false) {
-		return $this->get_single_taxonomy($this->post->ID, 'category', $default, $string);
+		return self::get_single_taxonomy($this->post->ID, 'category', $default, $string);
 	}
 	
 	/**
@@ -138,7 +138,7 @@ class Surface_CPT_Post extends Surface_CTP {
 	 * @return	string|object 
 	 */
 	public function get_tag($default = '', $string = false) {
-		return $this->get_single_taxonomy($this->post->ID, 'post_tag', $default, $string);
+		return self::get_single_taxonomy($this->post->ID, 'post_tag', $default, $string);
 	}
 }
 
