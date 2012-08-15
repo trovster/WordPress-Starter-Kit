@@ -18,7 +18,7 @@
 			</div>
 			<?php endif; ?>
 			<div class="entry-content">
-				<?php the_content(); ?>
+				<?php $featured->the_content(); ?>
 			</div>
 			<?php if($featured->has_link_href()): ?></a><?php endif; ?>
 		</li>

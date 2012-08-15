@@ -13,10 +13,10 @@
 	
 	<div class="hentry">
 		
-		<h1 class="entry-title"><?php the_title(); ?></h1>
+		<h1 class="entry-title"><?php $page->the_title(); ?></h1>
 		
 		<div class="entry-content column column-primary">
-			<?php the_content(); ?>
+			<?php $page->the_content(); ?>
 		</div>
 		
 		<?php if(!empty($page->has_custom_value('secondary_column'))): ?>
