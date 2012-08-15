@@ -27,7 +27,7 @@ class Surface_CTP {
 			add_action('save_post',		array(&$this, 'custom_fields_update'));
 			add_action('pre_get_posts', array(&$this, 'pre_get_posts'));
 
-			add_action('manage_posts_custom_column', array(&$this, 'manage_columns'), 10, 2);
+			add_action(sprintf('manage_posts_custom_column', $this->get_post_type()), array(&$this, 'manage_columns'), 10, 2);
 			add_filter(sprintf('manage_edit-%s_columns', $this->get_post_type()), array(&$this, 'manage_edit_columns'));
 			add_filter(sprintf('manage_edit-%s_sortable_columns', $this->get_post_type()), array(&$this, 'manage_sortable_columns'));
 		}
@@ -216,6 +216,55 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * get_the_title
+	 * @desc	
+	 * @param	int		$id
+	 * return	string
+	 */
+	public function get_the_title($id = 0) {
+		$title	= isset($this->post->post_title) ? $this->post->post_title : '';
+		$id		= isset($this->post->ID) ? $this->post->ID : (int) $id;
+
+		return apply_filters('the_title', $title, $id);
+	}
+	
+	/**
+	 * the_title
+	 * @desc	
+	 * @param	string	$before
+	 * @param	string	$after
+	 * @param	boolean	$echo
+	 * @return	string 
+	 */
+	public function the_title($before = '', $after = '', $echo = true) {
+		$title = $this->get_the_title();
+		
+		if(strlen($title) == 0) {
+			return;
+		}
+
+		$title = $before . $title . $after;
+
+		if($echo) {
+			echo $title;
+		}
+		else {
+			return $title;
+		}
+	}
+	
+	/**
+	 * has_excerpt
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_excerpt() {
+		$excerpt = $this->post->post_excerpt;
+		
+		return strlen($excerpt) > 0;
+	}
+	
+	/**
 	 * get_the_excerpt
 	 * @desc	
 	 * @param	int		$length
@@ -322,7 +371,7 @@ class Surface_CTP {
 	 * @param	boolean	$string
 	 * @return	string|object 
 	 */
-	public function get_single_taxonomy($id, $taxonomy, $default = '', $string = false) {
+	public static function get_single_taxonomy($id, $taxonomy, $default = '', $string = false) {
 		$taxonomies	= get_the_terms($id, $taxonomy);
 		$return		= (object) array(
 			'term_id'	=> 0,
@@ -534,8 +583,9 @@ class Surface_CTP {
 	 * @return	string 
 	 */
 	protected static function _custom_field_html($id, $name, $label, $value, $class = '', $type = null) {
-		$type	= is_null($type) ? 'text' : $type;
-		$html	= '';
+		$type  = is_null($type) ? 'text' : $type;
+
+		$html  = '';
 
 		if($type === 'textarea') {
 			$html .= '<p><label for="' . $id . '">' . $label . ':</label><br />' . "\r\n";
