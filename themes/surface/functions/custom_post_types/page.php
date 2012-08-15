@@ -76,7 +76,7 @@ class Surface_CPT_Page extends Surface_CTP {
 	* @return	mixed
 	*/
 	public function get_link_href($default = false) {
-		return get_permalink($this->ID);
+		return $this->get_permalink();
 	}
 }
 

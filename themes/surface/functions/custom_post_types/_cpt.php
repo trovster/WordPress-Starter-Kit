@@ -298,14 +298,133 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * get_permalink
+	 * @desc	Proxies to the built in WordPress get_permalink functionality
+	 * @param	boolean	$leavename
+	 * @return	string
+	 */
+	public function get_permalink($leavename = false) {
+		return get_permalink($this->post->ID, $leavename);
+	}
+	
+	/**
+	 * the_permalink
+	 * @desc	
+	 */
+	public function the_permalink() {
+		echo apply_filters('the_permalink', $this->get_permalink());
+	}
+	
+	/**
+	 * has_content
+	 * @desc	
+	 * @return	boolean 
+	 */
+	public function has_content() {
+		return strlen($this->post->post_content) > 0;
+	}
+	
+	/**
+	 * get_the_content
+	 * @desc	
+	 * @global	object		$post
+	 * @global	type		$more
+	 * @global	type		$page
+	 * @global	type		$pages
+	 * @global	type		$multipage
+	 * @global	type		$preview
+	 * @param	string		$more_link_text
+	 * @param	boolean		$stripteaser 
+	 * @return	string 
+	 */
+	public function get_the_content($more_link_text = null, $stripteaser = false) {
+		global $post, $more, $page, $pages, $multipage, $preview;
+
+		if(is_null($more_link_text)) {
+			$more_link_text = __( '(more...)' );
+		}
+
+		$output		= '';
+		$hasTeaser	= false;
+
+		// If post password required and it doesn't match the cookie.
+		if(post_password_required($this->post)) {
+			return get_the_password_form();
+		}
+		
+		// if the requested page doesn't exist
+		// give them the highest numbered page that DOES exist
+		if($page > count($pages)) {
+			$page = count($pages);
+		}
+
+		$content = $pages[$page-1];
+		
+		if(preg_match('/<!--more(.*?)?-->/', $content, $matches)) {
+			$content = explode($matches[0], $content, 2);
+			if (!empty($matches[1]) && !empty($more_link_text)) {
+				$more_link_text = strip_tags(wp_kses_no_null(trim($matches[1])));
+			}
+			$hasTeaser = true;
+		}
+		else {
+			$content = array($content);
+		}
+		
+		if((false !== strpos($post->post_content, '<!--noteaser-->') && ((!$multipage) || ($page==1)))) {
+			$stripteaser = true;
+		}
+
+		$teaser = $content[0];
+		
+		if($more && $stripteaser && $hasTeaser) {
+			$teaser = '';
+		}
+
+		$output .= $teaser;
+		
+		if(count($content) > 1) {
+			if($more) {
+				$output .= '<span id="more-' . $post->ID . '"></span>' . $content[1];
+			}
+			else {
+				if(!empty($more_link_text)) {
+					$more_link = sprintf(' <a href="%s#more-%d" class="more-link">%s</a>', $this->get_permalink(), $this->post->ID, $more_link_text);
+					$output .= apply_filters('the_content_more_link', $more_link, $more_link_text);
+				}
+				$output = force_balance_tags($output);
+			}
+		}
+		
+		// preview fix for javascript bug with foreign languages
+		if($preview) {
+			$output = preg_replace_callback('/\%u([0-9A-F]{4})/', '_convert_urlencoded_to_entities', $output);
+		}	
+
+		return $output;
+	}
+	
+	/**
+	 * the_content
+	 * @desc	
+	 * @param	string		$more_link_text
+	 * @param	boolean		$stripteaser 
+	 */
+	public function the_content($more_link_text = null, $stripteaser = false) {
+		$content = $this->get_the_content($more_link_text, $stripteaser);
+		$content = apply_filters('the_content', $content);
+		$content = str_replace(']]>', ']]&gt;', $content);
+		
+		echo $content;
+	}
+	
+	/**
 	 * has_excerpt
 	 * @desc	
 	 * @return	boolean 
 	 */
 	public function has_excerpt() {
-		$excerpt = $this->post->post_excerpt;
-		
-		return strlen($excerpt) > 0;
+		return strlen($this->post->post_excerpt) > 0;
 	}
 	
 	/**
