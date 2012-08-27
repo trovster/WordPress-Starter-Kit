@@ -4,14 +4,14 @@
 	
 	<?php while(have_posts()): the_post(); ?>
 	
-	<?php $page	= Surface_CPT_Page::find_by_id($post->ID); ?>
+	<?php $the_page	= Surface_CPT_Page::find_by_id($post->ID); ?>
 	
 	<div class="hentry">
 		
-		<h1 class="entry-title"><?php $page->the_title(); ?></h1>
+		<h1 class="entry-title"><?php $the_page->the_title(); ?></h1>
 		
 		<div class="entry-content">
-			<?php $page->the_content(); ?>
+			<?php $the_page->the_content(); ?>
 		</div>
 		
 	</div>
