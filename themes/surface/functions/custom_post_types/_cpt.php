@@ -13,6 +13,14 @@ class Surface_CTP {
 	protected $_post_type,
 			  $_custom		= null,
 			  $_attachments	= null;
+	
+	protected static $_allowed_keys_orderby = array(
+		'author', 'post_author', 'date', 'post_date', 'title', 'post_title', 'name', 'post_name', 'modified',
+		'post_modified', 'modified_gmt', 'post_modified_gmt', 'menu_order', 'parent', 'post_parent',
+		'id', 'rand', 'comment_count'
+	);
+	
+	protected static $_allowed_keys_order = array('asc', 'desc');
 
 	/**
 	* __construct()
