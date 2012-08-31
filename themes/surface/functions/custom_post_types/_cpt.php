@@ -366,7 +366,7 @@ class Surface_CTP {
 			$page = count($pages);
 		}
 
-		$content = $pages[$page-1];
+		$content = $this->post->post_content;
 		
 		if(preg_match('/<!--more(.*?)?-->/', $content, $matches)) {
 			$content = explode($matches[0], $content, 2);
@@ -379,7 +379,7 @@ class Surface_CTP {
 			$content = array($content);
 		}
 		
-		if((false !== strpos($post->post_content, '<!--noteaser-->') && ((!$multipage) || ($page==1)))) {
+		if((false !== strpos($this->post->post_content, '<!--noteaser-->') && ((!$multipage) || ($page==1)))) {
 			$stripteaser = true;
 		}
 
@@ -393,7 +393,7 @@ class Surface_CTP {
 		
 		if(count($content) > 1) {
 			if($more) {
-				$output .= '<span id="more-' . $post->ID . '"></span>' . $content[1];
+				$output .= '<span id="more-' . $this->post->ID . '"></span>' . $content[1];
 			}
 			else {
 				if(!empty($more_link_text)) {
