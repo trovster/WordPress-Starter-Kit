@@ -11,7 +11,7 @@
 		?>
 		<li <?php post_class(array_filter($class)); ?>>
 			<?php if($featured->has_link_href()): ?><a href="<?php echo $featured->get_link_href(); ?>" rel="bookmark" class="url"><?php endif; ?>
-			<h3 class="entry-title"><?php the_title(); ?></h3>
+			<h3 class="entry-title"><?php $featured->the_title(); ?></h3>
 			<?php if($featured->has_thumbnail()): ?>
 			<div class="photo">
 				<?php echo $featured->get_thumbnail($featured->get_post_type() . '-image'); ?>
