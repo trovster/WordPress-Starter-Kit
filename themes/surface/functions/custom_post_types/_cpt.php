@@ -30,6 +30,9 @@ class Surface_CTP {
 	public function __construct($options = array()) {
 		if($options === 'setup') {
 			add_action('init',			array(&$this, 'register_post_type'));
+			add_action('init',			array(&$this, 'register_taxonomies'));
+			add_action('init',			array(&$this, 'register_images'));
+			
 			add_action('admin_menu',	array(&$this, 'menu_remove_menu'));
 			add_action('admin_init',	array(&$this, 'custom_field_boxes'));
 			add_action('save_post',		array(&$this, 'custom_fields_update'));
@@ -481,6 +484,30 @@ class Surface_CTP {
 
 		return implode(' ', $words) . $append;
 	}
+
+	/**
+	 * get_top_level_id
+	 * @global	object	$post
+	 * @param	int		$post_id
+	 * @param	int		$parent_id
+	 * @param	int		$level
+	 * @return	int
+	 */
+	public static function get_top_level_id($post_id, $parent_id=NULL, $level=1) {
+		global $post;
+
+		$a		= get_post_ancestors($post_id);
+		$query	= array(
+			'post_parent'	=> $post_id,
+			'post_type'		=> 'page'
+		);
+		$posts	= new WP_Query($query);
+		$root	= count($a) - $level;
+		$pid	= array_key_exists($root, $a) ? $a[$root] : $parent_id;
+		$pid	= ($posts->have_posts() && empty($pid)) ? $post_id : $pid;
+
+		return (int) $pid;
+	}
 	
 	/**
 	 * has_attachments
@@ -611,6 +638,16 @@ class Surface_CTP {
 	 * register_post_type 
 	 */
 	public function register_post_type() {}
+	
+	/**
+	 * register_taxonomies
+	 */
+	public function register_taxonomies() {}
+	
+	/**
+	 * register_images
+	 */
+	public function register_images() {}
 	
 	/**
 	* menu_remove_menu
