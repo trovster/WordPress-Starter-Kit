@@ -4,7 +4,7 @@
 	
 	<?php while(have_posts()): the_post(); ?>
 	
-	<?php $the_page	= Surface_CPT_Page::find_by_id($post->ID); ?>
+	<?php $the_page	= Surface_CPT_Page::find_by_id(get_the_ID()); ?>
 	
 	<div class="hentry">
 		

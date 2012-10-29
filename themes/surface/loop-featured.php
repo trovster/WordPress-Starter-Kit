@@ -5,7 +5,7 @@
 		<?php
 		$class	 = class_count_attr($i, $total, array());
 		
-		$featured	= Surface_CPT_Featured::find_by_id($post->ID);
+		$featured	= Surface_CPT_Featured::find_by_id(get_the_ID());
 		$class[]	= $featured->has_link_href() ? 'has-link' : '';
 		$class[]	= $featured->has_thumbnail() ? 'has-thumbnail' : '';
 		?>
