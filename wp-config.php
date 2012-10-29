@@ -31,7 +31,8 @@ switch(strtolower($_SERVER['HTTP_HOST'])) {
 		define('WP_CONTENT_URL', 'http://example.dev/wp-content');
 		define('WP_CDN', 'http://example.dev');
 		
-		define('WP_DEBUG', false);
+		define('WP_DEBUG', true);
+		define('SAVEQUERIES', true);
 		define('WP_CACHE', false);
 		define('WP_MEMORY_LIMIT', '64M');
 		define('WP_POST_REVISIONS', false);
