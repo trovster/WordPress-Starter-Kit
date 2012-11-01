@@ -19,9 +19,9 @@
 			<?php $the_page->the_content(); ?>
 		</div>
 		
-		<?php if($the_page->has_custom_value('secondary_column')): ?>
+		<?php if($the_page->has_custom_value('secondary_content')): ?>
 		<div class="column column-secondary">
-			<?php echo apply_filters('the_content', $the_page->custom_value('secondary_column')); ?>
+			<?php echo apply_filters('the_content', $the_page->custom_value('secondary_content')); ?>
 		<!-- end of div .column-secondary -->
 		</div>
 		<?php endif; ?>
