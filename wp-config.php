@@ -14,6 +14,10 @@
  * @package WordPress
  */
 
+ini_set('upload_max_filesize', '18M');
+ini_set('post_max_size', '18M');
+ini_set('max_execution_time', '300');
+
 switch(strtolower($_SERVER['HTTP_HOST'])) {
 	case 'example.dev':
 	case 'www.example.dev':
