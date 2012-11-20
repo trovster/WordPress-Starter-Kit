@@ -217,6 +217,23 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * get_the_ID
+	 * @desc	
+	 * @return	int
+	 */
+	public function get_the_ID() {
+		return $this->post->ID;
+	}
+	
+	/**
+	 * the_ID
+	 * @desc	
+	 */
+	public function the_ID() {
+		echo $this->get_the_ID();
+	}
+	
+	/**
 	 * get_the_date
 	 * @desc
 	 * @param	string		$d
@@ -494,8 +511,6 @@ class Surface_CTP {
 	 * @return	int
 	 */
 	public static function get_top_level_id($post_id, $parent_id=NULL, $level=1) {
-		global $post;
-
 		$a		= get_post_ancestors($post_id);
 		$query	= array(
 			'post_parent'	=> $post_id,
@@ -660,7 +675,7 @@ class Surface_CTP {
 	*/
 	public function pre_get_posts(&$query) {
 		$type	= !empty($query->query_vars['post_type']) ? $query->query_vars['post_type'] : false;
-		$update	= !is_admin() && !is_preview() && is_string($type) && $type === $this->get_post_type();
+		$update	= !is_admin() && !is_preview() && ((is_string($type) && $type === $this->get_post_type()) || (is_array($type) && in_array($this->get_post_type(), $type)));
 
 		if(empty($query->query_vars['meta_query'])) {
 			$query->query_vars['meta_query'] = array();
