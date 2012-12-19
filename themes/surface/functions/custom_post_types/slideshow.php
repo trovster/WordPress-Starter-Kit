@@ -2,7 +2,7 @@
 
 class Surface_CPT_Slideshow extends Surface_CTP {
 	
-     protected $_post_type = 'slideshow';
+	protected $_post_type = 'slideshow';
 
 	/**
 	* __construct()

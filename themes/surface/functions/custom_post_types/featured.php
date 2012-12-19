@@ -2,7 +2,7 @@
 
 class Surface_CPT_Featured extends Surface_CTP {
 	
-     protected $_post_type = 'featured';
+	protected $_post_type = 'featured';
 
 	/**
 	* __construct()
