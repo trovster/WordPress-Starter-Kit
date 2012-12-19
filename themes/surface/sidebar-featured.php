@@ -6,12 +6,7 @@ $setup = array(
 	'title_li'			=> '',
 	'echo'				=> 0,
 	'depth'				=> 1,
-	'posts_per_page'	=> 4,
-	'meta_query'		=> array(
-		array(
-			'key'		=> '_thumbnail_id',
-		)
-	)
+	'posts_per_page'	=> 4
 );
 ?>
 <?php $original = template_pre_loop($setup); ?>

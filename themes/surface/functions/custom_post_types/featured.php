@@ -57,6 +57,40 @@ class Surface_CPT_Featured extends Surface_CTP {
 	public function register_images() {
 		add_image_size($this->get_post_type() . '-image', 240, 150, true);
 	}
+	
+	/**
+	* pre_get_posts
+	* @desc	Restrict posts
+	*/
+	public function pre_get_posts(&$query) {
+		parent::pre_get_posts($query);
+		
+		$type	= !empty($query->query_vars['post_type']) ? $query->query_vars['post_type'] : false;
+		$update	= !is_admin() && !is_preview() && is_string($type) && $type === $this->get_post_type();
+		
+		$posts_per_page = $query->get('posts_per_page');
+		$orderby		= $query->get('orderby');
+		$order			= $query->get('order');
+		
+		if($update) {
+			if(empty($posts_per_page)) {
+				$query->set('posts_per_page', 4);
+			}
+			if(empty($orderby) || !in_array(strtolower($orderby), self::$_allowed_keys_orderby)) {
+				$query->set('orderby', 'menu_order');
+			}
+			if(empty($order) || !in_array(strtolower($order), self::$_allowed_keys_order)) {
+				$query->set('order', 'ASC');
+			}
+			$query->set('meta_query', array_merge($query->query_vars['meta_query'], array(
+				array(
+					'key'		=> '_thumbnail_id',
+					'compare'	=> '!=',
+					'value'		=> ''
+				),
+			)));
+		}
+	}
 
 	/**
 	* custom_field_boxes
