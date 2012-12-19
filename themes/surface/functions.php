@@ -215,7 +215,7 @@ function site_register_javascript_css() {
 		wp_dequeue_style('ngg-slideshow');
 
 		// javascript
-		wp_register_script('jquery', get_stylesheet_directory_uri() . '/js/jquery/1.8.0.js', false, '1.8.0', true);
+		wp_register_script('jquery', get_stylesheet_directory_uri() . '/js/jquery/1.8.3.js', false, '1.8.3', true);
 		wp_register_script('plugin.cycle', get_stylesheet_directory_uri() . '/js/jquery/plugin/cycle-2.99.js', false, '2.99', true);
 		wp_register_script('plugin.fancybox', get_stylesheet_directory_uri() . '/js/jquery/plugin/fancybox-2.0.6.js', false, '2.0.6', true);
 		

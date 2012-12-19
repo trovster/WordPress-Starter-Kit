@@ -50,7 +50,12 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 				'page-attributes'
 			)
 		));
-		
+	}
+	
+	/**
+	 * register_images
+	 */
+	public function register_images() {
 		add_image_size($this->get_post_type() . '-image', 1406, 307, true);
 		add_image_size($this->get_post_type() . '-text', 1406, 307, true);
 		

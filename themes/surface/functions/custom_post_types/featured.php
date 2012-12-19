@@ -49,7 +49,12 @@ class Surface_CPT_Featured extends Surface_CTP {
 				'page-attributes'
 			)
 		));
-		
+	}
+	
+	/**
+	 * register_images
+	 */
+	public function register_images() {
 		add_image_size($this->get_post_type() . '-image', 240, 150, true);
 	}
 
