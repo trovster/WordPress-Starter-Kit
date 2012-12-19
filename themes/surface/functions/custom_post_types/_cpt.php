@@ -217,6 +217,20 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * get_thumbnail_src
+	 * @desc	
+	 * @param	string			$size
+	 * @param	string|array	$attr
+	 * @return	array 
+	 */
+	public function get_thumbnail_src($size = 'post-thumbnail', $attr = '') {
+		if($this->has_thumbnail()) {
+			return wp_get_attachment_image_src(get_post_thumbnail_id($this->post->ID), $size, $attr);
+		}
+		return array();
+	}
+	
+	/**
 	 * get_the_ID
 	 * @desc	
 	 * @return	int
