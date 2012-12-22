@@ -30,6 +30,7 @@ foreach($cpts as $cpt) {
  * @hook	add_image_size
  */
 add_theme_support('post-thumbnails');
+add_theme_support('automatic-feed-links');
 set_post_thumbnail_size(700, 1000, true); // Normal post thumbnails	
 
 /**
