@@ -255,7 +255,7 @@ add_action('template_redirect', 'site_register_javascript_css');
  */
 function register_navigation() {
 	register_nav_menus(array(
-		'main'	=> __('Main Navigation'),
+		'main'	=> 'Main Navigation',
 	));
 }
 //add_action('init', 'register_navigation');

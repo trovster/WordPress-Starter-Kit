@@ -383,7 +383,7 @@ class Surface_CTP {
 		global $post, $more, $page, $pages, $multipage, $preview;
 
 		if(is_null($more_link_text)) {
-			$more_link_text = __( '(more...)' );
+			$more_link_text = '(more...)';
 		}
 
 		$output		= '';
@@ -581,7 +581,7 @@ class Surface_CTP {
 				$class[] = $i === 1 ? 'active' : '';
 				$class	 = array_filter($class);
 
-				$lis[] = '<li' . template_add_class($class) . '><img src="' . $attachment['location'] . '" alt="' . __($attachment['title']) . '" title="" /></li>';
+				$lis[] = '<li' . template_add_class($class) . '><img src="' . $attachment['location'] . '" alt="' . esc_attr($attachment['title']) . '" title="" /></li>';
 				$i++;
 			}
 		}
@@ -887,7 +887,7 @@ class Surface_CTP {
 		));
 
 		$html .= '<select name="' . $name . '" id="' . $id . '" style="min-width: 200px;">';
-		$html .= '<option value="">' . esc_attr(__($default)) . '</option>';
+		$html .= '<option value="">' . esc_attr($default) . '</option>';
 		
 		foreach($custom_posts as $custom_post) {
 			$selected = ($custom_post->ID == $value) ? ' selected="selected"' : '';
