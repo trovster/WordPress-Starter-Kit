@@ -160,6 +160,30 @@ h5 {
 }
 /* @end */
 
+/* @group WordPress required classes */
+.alignright {
+	float: right;
+	margin: 0 0 15px 15px;
+}
+.alignleft {
+	float: left;
+	margin: 0 15px 15px 0;
+}
+.aligncenter {
+	display: block;
+	margin-left: auto; margin-right: auto;
+}
+.sticky {}
+.gallery-caption {}
+.bypostauthor {}
+		
+.wp-caption {
+	position: relative;
+}
+	.wp-caption img {}
+	.wp-caption .wp-caption-text {}
+/* @end */
+
 /* @group Reset Lists */
 .nav,
 .nav ul,
@@ -353,15 +377,6 @@ form .wpcf7-not-valid-tip {
 
 /* @group Secondary Content */
 #content-secondary {}
-/* @end */
-		
-/* @group Captions */
-#content .wp-caption {
-	position: relative;
-	margin: 0 0 15px;
-}
-	#content .wp-caption img {}
-	#content .wp-caption .wp-caption-text {}
 /* @end */
 
 
