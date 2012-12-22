@@ -62,7 +62,7 @@
 
 			<div id="header" class="header">
 				<div class="inner">
-					<h1><a href="<?php echo get_option('home'); ?>/"><?php bloginfo('name'); ?></a></h1>
+					<h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
 					<?php if(!empty($desc)): ?>
 					<h2><?php echo $desc; ?></h2>
 					<?php endif; ?>
