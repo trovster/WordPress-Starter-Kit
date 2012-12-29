@@ -518,22 +518,20 @@ class Surface_CTP {
 
 	/**
 	 * get_top_level_id
-	 * @global	object	$post
-	 * @param	int		$post_id
 	 * @param	int		$parent_id
 	 * @param	int		$level
 	 * @return	int
 	 */
-	public static function get_top_level_id($post_id, $parent_id=NULL, $level=1) {
-		$a		= get_post_ancestors($post_id);
+	public static function get_top_level_id($parent_id = NULL, $level = 1) {
+		$a		= get_post_ancestors($this->post->ID);
 		$query	= array(
-			'post_parent'	=> $post_id,
+			'post_parent'	=> $this->post->ID,
 			'post_type'		=> 'page'
 		);
 		$posts	= new WP_Query($query);
 		$root	= count($a) - $level;
 		$pid	= array_key_exists($root, $a) ? $a[$root] : $parent_id;
-		$pid	= ($posts->have_posts() && empty($pid)) ? $post_id : $pid;
+		$pid	= ($posts->have_posts() && empty($pid)) ? $this->post->ID : $pid;
 
 		return (int) $pid;
 	}
