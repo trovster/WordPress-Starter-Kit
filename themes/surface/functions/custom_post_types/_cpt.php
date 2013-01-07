@@ -542,7 +542,7 @@ class Surface_CTP {
 	 * @return	boolean 
 	 */
 	public function has_attachments() {
-		if(function_exists('attachments_get_attachments')) {
+		if(class_exists('Attachments') || class_exists('AttachmentsPro') || function_exists('attachments_get_attachments')) {
 			$this->set_attachments();
 			
 			return count($this->_attachments) > 0 ? true : false;
@@ -556,7 +556,21 @@ class Surface_CTP {
 	 * @return	Object 
 	 */
 	public function set_attachments() {
-		if(function_exists('attachments_get_attachments')) {
+		if(class_exists('Attachments')) {
+			$attachments	= new Attachments();
+			$data			= $attachments->get_attachments('attachments', $this->post->ID);
+			
+			$this->_attachments = $data;
+		}
+		elseif(class_exists('AttachmentsPro')) {
+			$attachments	= new AttachmentsPro();
+			$data			= $attachments->get_attachments(array(
+				'post_id'	=> $this->post->ID
+			));
+			
+			$this->_attachments = !empty($data['attachments']) ? $data['attachments'] : $data;
+		}
+		elseif(function_exists('attachments_get_attachments')) {
 			$this->_attachments = attachments_get_attachments($this->post->ID);
 		}
 		
@@ -572,19 +586,43 @@ class Surface_CTP {
 		$lis	= array();
 		
 		if($this->has_attachments()) {
-			$total	= count($this->_attachments);
-			$i		= 1;
-			foreach($this->_attachments as $attachment) {
-				$class	 = class_count_attr($i, $total);
-				$class[] = $i === 1 ? 'active' : '';
-				$class	 = array_filter($class);
+			if(is_object($this->_attachments)) {
+				$total	= $this->_attachments->total();
+				$i		= 1;
+				
+				while($this->_attachments->get()) {
+					$class		= class_count_attr($i, $total);
+					$class[]	= $i === 1 ? 'active' : '';
+					$class		= array_filter($class);
+					$text		= $this->_attachments->field('title');
+					$text		= !empty($text) ? $text : 'Download';
+					
+					if($this->_attachments->type() === 'image') {
+						$lis[] = sprintf('<li%s>%s</li>', template_add_class($class), $this->_attachments->image('thumbnail'));
+					}
+					else {
+						$lis[] = sprintf('<li%s><a href="%s">%s</a></li>', template_add_class($class), $this->_attachments->url(), $text);
+					}
+					
+					$i++;
+				}
+			}
+			else {
+				$total	= count($this->_attachments);
+				$i		= 1;
 
-				$lis[] = '<li' . template_add_class($class) . '><img src="' . $attachment['location'] . '" alt="' . esc_attr($attachment['title']) . '" title="" /></li>';
-				$i++;
+				foreach($this->_attachments as $attachment) {
+					$class	 = class_count_attr($i, $total);
+					$class[] = $i === 1 ? 'active' : '';
+					$class	 = array_filter($class);
+
+					$lis[] = sprintf('<li%s><img src="%s" alt="%s" title="" /></li>', template_add_class($class), $attachment['location'], __($attachment['title']));
+					$i++;
+				}
 			}
 		}
 		
-		return count($lis) > 0 ? '<ul>' . implode("\r\n", $lis) . '</ul>' : '';
+		return count($lis) > 0 ? sprintf('<ul>%s</ul>', implode("\r\n", $lis)) : '';
 	}
 
 	/**
