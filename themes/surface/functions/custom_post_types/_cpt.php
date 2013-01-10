@@ -387,7 +387,7 @@ class Surface_CTP {
 	 * @return	boolean 
 	 */
 	public function has_content() {
-		return strlen($this->post->post_content) > 0;
+		return isset($this->post->post_content) && strlen($this->post->post_content) > 0;
 	}
 	
 	/**
@@ -424,7 +424,7 @@ class Surface_CTP {
 			$page = count($pages);
 		}
 
-		$content = $this->post->post_content;
+		$content = $this->has_content() ? $this->post->post_content : '';
 		
 		if(preg_match('/<!--more(.*?)?-->/', $content, $matches)) {
 			$content = explode($matches[0], $content, 2);
@@ -490,7 +490,7 @@ class Surface_CTP {
 	 * @return	boolean 
 	 */
 	public function has_excerpt() {
-		return strlen($this->post->post_excerpt) > 0;
+		return isset($this->post->post_excerpt) && strlen($this->post->post_excerpt) > 0;
 	}
 	
 	/**
@@ -501,7 +501,11 @@ class Surface_CTP {
 	 * @return	string 
 	 */
 	public function get_the_excerpt($length = 12, $append = '…') {
-		$excerpt = $this->post->post_excerpt;
+		$excerpt = $this->has_excerpt() ? $this->post->post_excerpt : '';
+		
+		if(empty($excerpt)) {
+			$excerpt = $this->post->post_content;
+		}
 		
 		if(is_numeric($length)) {
 			$excerpt = self::truncate_words($excerpt, $length, $append);
