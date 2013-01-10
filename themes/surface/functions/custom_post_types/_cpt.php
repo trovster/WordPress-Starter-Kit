@@ -101,7 +101,7 @@ class Surface_CTP {
 	 */
 	public function set_post($post) {
 		$this->_post	= $post;
-		$this->custom	= $post->ID;
+		$this->custom	= is_object($post) && !empty($post->ID) ? $post->ID : null;
 		
 		return $this;
 	}
