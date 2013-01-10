@@ -113,6 +113,16 @@ class Surface_CTP {
 	public function get_post() {
 		return $this->_post;
 	}
+	
+	/**
+	 * post_type
+	 * @desc	
+	 * @return	string
+	 */
+	public function set_post_type($post_type) {
+		$this->_post_type = $post_type;
+		return $this;
+	}
 
 	/**
 	 * get_post_type
