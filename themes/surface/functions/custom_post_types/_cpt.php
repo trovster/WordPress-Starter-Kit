@@ -79,6 +79,20 @@ class Surface_CTP {
 		}
 		return null;
 	}
+
+	/**
+	* __isset()
+	* @return boolean
+	*/
+	public function __isset($key) {
+		if(method_exists($this, 'get_' . $key)) {
+			$value = $this->{'get_' . $key}();
+		}
+		elseif(isset($this->{$key})) {
+			$value = $this->{$key};
+		}
+		return !empty($value) ? true : false;
+	}
 	
 	/**
 	 * set_post
