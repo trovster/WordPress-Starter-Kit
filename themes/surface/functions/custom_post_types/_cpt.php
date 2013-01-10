@@ -1016,4 +1016,28 @@ class Surface_CTP {
 		
 		return false;
 	}
+	
+	/**
+	 * find_latest
+	 * @desc	
+	 * @param	string	$post_type
+	 * @return	object
+	 */
+	public static function find_latest($post_type) {
+		$posts = get_posts(array(
+			'numberposts'	=> 1,
+			'orderby'		=> 'post_date',
+			'order'			=> 'DESC',
+			'post_type'		=> $post_type,
+			'post_status'	=> 'publish',
+		));
+		
+		if(count($posts) > 0) {
+			return self::forge(array(
+				'post'	=> array_shift($posts)
+			));
+		}
+		
+		return false;
+	}
 }
