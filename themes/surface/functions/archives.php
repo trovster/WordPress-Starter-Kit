@@ -109,8 +109,8 @@ function smart_archives_generate($id) {
 		$monthNames[$currentMonth] = ucfirst(strftime("%b", strtotime($currentMonth . $bogusDate)));
 	}
 
+	$d = 1; $archives = '';
 	if($yearsWithPosts) {
-		$d = 1; $archives = '';
 		foreach($yearsWithPosts as $currentYear) {
 			for ($currentMonth = 12; $currentMonth >= 1; $currentMonth--) {
 				if ($monthsWithPosts[$currentYear->year][$currentMonth]) {
