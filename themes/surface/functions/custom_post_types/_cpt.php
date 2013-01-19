@@ -782,7 +782,7 @@ class Surface_CTP {
 	
 	/**
 	* custom_field_box_specific
-	* @global	object	$post
+	* @param	object	$post
 	*/
 	public function custom_field_box_specific($post) {}
 	
