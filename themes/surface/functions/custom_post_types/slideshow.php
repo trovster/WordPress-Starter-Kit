@@ -126,24 +126,24 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 	* @param	int		id
 	*/
 	public function manage_columns($column, $id) {
-		$post = self::find_by_id($id);
+		$the_post = self::find_by_id($id);
 
 		switch($column) {
 			case 'slideshow_background':
-				if($post->has_thumbnail()) {
-					echo $post->get_thumbnail('thumb');
+				if($the_post->has_thumbnail()) {
+					echo $the_post->get_thumbnail('thumb');
 				}
 				break;
 				
 			case 'slideshow_image_text':
-				if($post->has_thumbnail_text()) {
-					echo $post->get_thumbnail_text('thumb');
+				if($the_post->has_thumbnail_text()) {
+					echo $the_post->get_thumbnail_text('thumb');
 				}
 				break;
 
 			case 'slideshow_link':
-				$link = $post->get_link_href();
-				echo $post->has_link_href() ? sprintf('<a href="%s">%s</a>', $link, self::_short_url($link)) : '-';
+				$link = $the_post->get_link_href();
+				echo $the_post->has_link_href() ? sprintf('<a href="%s">%s</a>', $link, self::_short_url($link)) : '-';
 				break;
 		}
 	}

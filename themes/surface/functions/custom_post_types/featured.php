@@ -116,11 +116,11 @@ class Surface_CPT_Featured extends Surface_CTP {
 	* @param	int		id
 	*/
 	public function manage_columns($column, $id) {
-		$post = self::find_by_id($id);
+		$the_post = self::find_by_id($id);
 
 		switch($column) {
 			case 'featured_link':
-				$link = $post->get_link_href();
+				$link = $the_post->get_link_href();
 				echo !empty($link) ? sprintf('<a href="%s">%s</a>', $link, self::_short_url($link)) : '-';
 				break;
 		}
