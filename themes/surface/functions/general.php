@@ -648,22 +648,24 @@ function template_get_template_by_id($page_id) {
  * @param	string	$value
  * @return	null|int
  */
-function template_get_nav_item($key, $value = null) {
-	$navigation = template_get_nav();
+if(!function_exists('template_get_nav_item')) {
+	function template_get_nav_item($key, $value = null) {
+		$navigation = template_get_nav();
 
-	if(!empty($navigation[$key])) {
-		if(!is_null($value)) {
-			if(!empty($navigation[$key][$value])) {
-				return $navigation[$key][$value];
+		if(!empty($navigation[$key])) {
+			if(!is_null($value)) {
+				if(!empty($navigation[$key][$value])) {
+					return $navigation[$key][$value];
+				}
+
+				return null;
 			}
 
-			return null;
+			return $navigation[$key];
 		}
 
-		return $navigation[$key];
+		return null;
 	}
-
-	return null;
 }
 
 /**
