@@ -670,7 +670,7 @@ class Surface_CTP {
 			'slug'		=> sanitize_title($default)
 		);
 
-		if(!empty($taxonomies)) {
+		if(!empty($taxonomies) && !is_wp_error($taxonomies)) {
 			$return = array_shift($taxonomies);
 		}
 
