@@ -46,9 +46,6 @@ switch(strtolower($_SERVER['HTTP_HOST'])) {
 		define('WPCF7_SHOW_DONATION_LINK', false);
 		define('NGG_SKIP_LOAD_SCRIPTS', false);
 		
-		define('DISALLOW_FILE_EDIT', true);
-		define('DISALLOW_FILE_MODS', true);
-		
 		define('ICL_DONT_LOAD_NAVIGATION_CSS', true);
 		define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
 		define('ICL_DONT_LOAD_LANGUAGES_JS', true);
@@ -79,9 +76,6 @@ switch(strtolower($_SERVER['HTTP_HOST'])) {
 		define('WPCF7_SHOW_DONATION_LINK', false);
 		define('NGG_SKIP_LOAD_SCRIPTS', false);
 		
-		define('DISALLOW_FILE_EDIT', true);
-		define('DISALLOW_FILE_MODS', true);
-		
 		define('ICL_DONT_LOAD_NAVIGATION_CSS', true);
 		define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
 		define('ICL_DONT_LOAD_LANGUAGES_JS', true);
@@ -111,9 +105,6 @@ switch(strtolower($_SERVER['HTTP_HOST'])) {
 		define('WPCF7_AUTOP', false);
 		define('WPCF7_SHOW_DONATION_LINK', false);
 		define('NGG_SKIP_LOAD_SCRIPTS', false);
-		
-		define('DISALLOW_FILE_EDIT', true);
-		define('DISALLOW_FILE_MODS', true);
 		
 		define('ICL_DONT_LOAD_NAVIGATION_CSS', true);
 		define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
