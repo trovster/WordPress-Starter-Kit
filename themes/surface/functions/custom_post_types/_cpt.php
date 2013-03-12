@@ -260,7 +260,7 @@ class Surface_CTP {
 	 * @return	int
 	 */
 	public function get_the_ID() {
-		return $this->post->ID;
+		return !empty($this->post) ? $this->post->ID : 0;
 	}
 	
 	/**
