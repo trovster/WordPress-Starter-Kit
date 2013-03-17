@@ -69,9 +69,10 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 	}
 	
 	/**
-	* pre_get_posts
-	* @desc	Restrict posts
-	*/
+	 * pre_get_posts
+	 * @desc	Restrict posts
+	 * @param	object	$query
+	 */
 	public function pre_get_posts(&$query) {
 		parent::pre_get_posts($query);
 		
@@ -103,28 +104,28 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 	}
 
 	/**
-	* custom_field_boxes
-	* @desc		Assigning the custom fields to events
-	*/
+	 * custom_field_boxes
+	 * @desc	Assigning the custom fields to events
+	 */
 	public function custom_field_boxes() {
 		add_meta_box($this->get_post_type() . '_specific', 'Specifics', array(&$this, 'custom_field_box_specific'), $this->get_post_type(), 'normal', 'high');
 	}
 	
 	/**
-	* custom_field_box_specific
-	* @global	object	$post
-	*/
+	 * custom_field_box_specific
+	 * @param	object	$post
+	 */
 	public function custom_field_box_specific($post) {
 		echo self::_custom_fields_general_page_id($post);
 		echo self::_custom_fields_general_link($post);
 	}
 	
 	/**
-	* manage_columns
-	* @desc		Populate the row values for the new columns
-	* @param	string	$column
-	* @param	int		id
-	*/
+	 * manage_columns
+	 * @desc	Populate the row values for the new columns
+	 * @param	string	$column
+	 * @param	int		id
+	 */
 	public function manage_columns($column, $id) {
 		$the_post = self::find_by_id($id);
 
@@ -149,10 +150,10 @@ class Surface_CPT_Slideshow extends Surface_CTP {
 	}
 	
 	/**
-	* manage_edit_columns
-	* @param	array $columns
-	* @return	array
-	*/
+	 * manage_edit_columns
+	 * @param	array $columns
+	 * @return	array
+	 */
 	public function manage_edit_columns($columns) {
 		$date		= $columns['date'];
 		
