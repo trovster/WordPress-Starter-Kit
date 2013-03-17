@@ -361,19 +361,6 @@ form .wpcf7-not-valid-tip {
 	}
 	#content-primary {}
 	#content-secondary {}
-	
-	.alignright {
-		float: right;
-		margin: 0 0 15px 15px;
-	}
-	.alignleft {
-		float: left;
-		margin: 0 15px 15px 0;
-	}
-	.aligncenter {
-		display: block;
-		margin-left: auto; margin-right: auto;
-	}
 
 /* @group Secondary Content */
 #content-secondary {}
