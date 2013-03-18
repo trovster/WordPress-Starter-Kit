@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if lt IE 7]> <html class="no-js ie6 lt-ie9 lt-ie8 lt-ie7 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 lt-ie9 lt-ie8 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 lt-ie9 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <!--<![endif]-->
 <?php $classes = array(); ?>
 <head>
