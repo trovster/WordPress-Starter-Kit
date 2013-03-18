@@ -559,7 +559,7 @@ class Surface_CTP {
 	 * @param	int		$level
 	 * @return	int
 	 */
-	public static function get_top_level_id($parent_id = NULL, $level = 1) {
+	public function get_top_level_id($parent_id = NULL, $level = 1) {
 		$a		= get_post_ancestors($this->post->ID);
 		$query	= array(
 			'post_parent'	=> $this->post->ID,
