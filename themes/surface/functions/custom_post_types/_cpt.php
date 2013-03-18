@@ -218,6 +218,15 @@ class Surface_CTP {
 	}
 	
 	/**
+	 * data_attributes
+	 * @desc	
+	 * @return	string 
+	 */
+	public function data_attributes() {
+		return '';
+	}
+	
+	/**
 	 * has_thumbnail
 	 * @desc	
 	 * @return	boolean 
