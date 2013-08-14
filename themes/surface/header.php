@@ -1,28 +1,13 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 lt-ie9 lt-ie8 lt-ie7 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 lt-ie9 lt-ie8 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 lt-ie9 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if lt IE 7]> <html class="no-js ie6 lt-ie10 lt-ie9 lt-ie8 lt-ie7 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 lt-ie10 lt-ie9 lt-ie8 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 lt-ie10 lt-ie9 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 lt-ie10 oldie" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?> xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <!--<![endif]-->
 <?php $classes = array(); ?>
 <head>
 		<meta charset="<?php bloginfo('charset'); ?>" />
-
-                                                                         <!--:-.>
-                                                                       .+syyyyssyyo.
-                                                                      -yyyyys`.syyys`
-                                                                      /yyyyyo `osys:
-              .-//+++/:-``-----------.   .-------. --------- `-///:..-oyyyyyo---```.://+++//:-`        `-:/+++/:-`      `-:////:-.
-            :syyyyyssyyyyyyysyyyyyyyy/  `oyyyyyyyo`syyyyyyyy+ys+syyysyyyyyyyyyys-+sys+//+syyyyyo.    -oyyyyyyyyyyyo. `:syyyyyyyyyys/`
-           /yyyyys.   `-+yyy+.-syyyyy/   .-oyyyyyo ..:yyyyyyy-`+yyyyy-oyyyyyo-.-oyyyyo.   -yyyyys   +yyyyys-` ./syyy/syyyys-``.+yyyyy:
-           oyyyyyy+:-.`  .::.  oyyyyy/     +yyyyyo   `syyyyy/ `oyyyy/ +yyyyyo   :syyys.   .yyyyyy` /yyyyyy.  -yyyyyyyyyyyy:    `syyyyy.
-           :yyyyyyyyyyyso/-`   oyyyyy/     +yyyyyo   `syyyyy:   .--`  +yyyyyo    `.--.-:/oyyyyyyy` syyyyyo   .syyyyyyyyyyyssssssyyyyyy/
-            ./oyyyyyyyyyyyys/  oyyyyy/     +yyyyyo   `syyyyy:         +yyyyyo   ./osyyyyo/syyyyyy``syyyyyo    `-:-./yyyyyy+///////////-
-           ://- .-:/osyyyyyyy: oyyyyy/     +yyyyyo   `syyyyy:         +yyyyyo  -yyyyo/.` :yyyyyyy` syyyyys`     -::+yyyyyy-      `----`
-           oyyy/`     :yyyyyy: +yyyyys`   -syyyyyo   .syyyyy:        `oyyyyyo` +yyyyy+.`.syyyyyyy..syyyyyy+`   .syys+yyyyyo.    .oyyy+
-           oyyyyys+++osyyyys/  -syyyyyyooss+yyyyyyssssyyyyyyyss/   :ssyyyyyyysssyyyys/sooyysyyyyyyyysoyyyyysoooyyys- -syyyyysoosyyys/
-           /oo--/osyyyyso+:`    ./osyyso+-`.+++++++o+++++++++++/   -++++++++++++-/oyyyyso:``:oyyyys/` .:+syyyyys+-`    ./osyyyysa-->
-
-
+		
 		<!-- www.phpied.com/conditional-comments-block-downloads/ -->
 		<!--[if IE]><![endif]-->
 
@@ -35,6 +20,7 @@
 		<meta name="robots" content="index,follow" />
 		<meta name="revisit-after" content="28 days" />
 		<meta http-equiv="imagetoolbar" content="false" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<!-- title, description, etc... -->
 		<?php $desc = get_bloginfo('description'); ?>
@@ -60,26 +46,28 @@
 	<div id="wrapper">
 		<div id="container">
 
-			<div id="header" class="header">
+			<div id="header" class="header" role="banner">
 				<div class="inner">
 					<h1><a href="<?php echo home_url('/'); ?>"><?php bloginfo('name'); ?></a></h1>
+
+					<div class="section" id="header-contact">
+						<p class="tel"><abbr class="type" title="Telephone">T:</abbr> <em class="value">01234 567 890</em></p>
+						<p class="email"><abbr class="type" title="Email">E:</abbr> <a class="value" href="mailto:hello@example.com">hello@example.com</a></p>
+					<!-- end of div #header-contact -->
+					</div>
+						
 					<?php if(!empty($desc)): ?>
 					<h2><?php echo $desc; ?></h2>
 					<?php endif; ?>
+					
 				<!-- end of div .inner -->
 				</div>
 			<!-- end of div #header -->
 			</div>
-
-			<div id="nav" class="nav">
-				<div class="inner">
-					<?php global $navigation; $navigation = template_get_nav(); ?>
-					<?php get_template_part('nav'); ?>
-					<?php $navigation = null; ?>
-				<!-- end of div .inner -->
-				</div>
-			<!-- end of div #nav -->
-			</div>
-
+					
+			<?php get_template_part('navigation'); ?>
+					
+			<?php get_template_part('banner'); ?>
+			
 			<div id="content" class="content section">
 				<div class="inner">

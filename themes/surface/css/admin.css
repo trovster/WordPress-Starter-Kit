@@ -1,4 +1,9 @@
-body.js #page_secondary_content {
+body.js #page_secondary_content,
+body.js #sidebar_sidebar_list,
+body.js #page_banner_info,
+body.js #page-page-banner-landscape,
+body.js #page_section_intro,
+body.js #page-page-page-listing-image {
 	display: none;
 }
 
@@ -6,8 +11,37 @@ div.postbox .tmce-active iframe {
 	background-color: #fff;
 }
 
+#banner_banner_list {}
+	#banner_banner_list label {
+		display: block;
+	}
+	#banner_banner_list select {
+		width: 50%;
+	}
+
 #post_top_story .checkbox,
 #featured .checkbox,
 #homepage_sidebar .checkbox {
 	background-color: transparent;
 }
+
+#sidebar_sidebar_list .sub {
+	padding-left: 4px; padding-bottom: 0;
+}
+.sidebar-items input {
+	margin-right: 7px;
+	vertical-align: baseline;
+}
+
+address.adr {
+	font-style: normal;
+}
+	address.adr span {
+		display: block;
+	}
+		address.adr span span {
+			display: inline;
+		}
+	address.adr .geo {
+		display: none;
+	}

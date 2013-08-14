@@ -15,13 +15,17 @@ App = (function (App, $) {
 			finalize: function () {
 				var elements	= {
 						show: {
-							'page-two-column.php':		$('#page_secondary_content')
+							'default.php':						$('#page_banner_info, #page-page-banner-landscape, #page_section_intro, #page-page-page-listing-image'),
 						},
 						hide: {
-							'front-page.php':			$('#postexcerpt'),
-							'page-parent.php':			$('#subtitle, #postimagediv, #postdivrich, #postexcerpt')
+							'default':							$('#postexcerpt'),
+							'front-page.php':					$('#postexcerpt, #sidebar_sidebar_list, #page-page-listing, #page_banner_info, #page-page-banner-landscape, #page_section_intro, #page-page-page-listing-image'),
+							'page-listing.php':					$('#postexcerpt, #page_banner_info, #page-page-banner-landscape, #page-page-listing, #page_section_intro, #page-page-page-listing-image'),
+							'page-contact.php':					$('#postexcerpt, #page_banner_info, #page-page-banner-landscape, #page_section_intro, #page-page-page-listing-image'),
+							'page-no-nav.php':					$('#postexcerpt, #page_banner_info, #page-page-banner-landscape, #page_section_intro, #page-page-page-listing-image'),
+							'page-parent.php':					$('#subtitle, #postimagediv, #postdivrich, #postexcerpt, #sidebar_sidebar_list, #page_banner_info, #page-page-banner-landscape, #page-page-listing, #page_section_intro, #page-page-page-listing-image')
 						}
-					}
+					};
 
 				$('#page_template').bind('change', function (event) {
 					var $select	= $(event.target).closest('select'),
@@ -42,6 +46,13 @@ App = (function (App, $) {
 					}
 
 				}).trigger('change');
+				
+				// external links
+				$('body').on('click.external', 'a[rel~="external"]', function (event) {
+					event.preventDefault();
+					event.stopPropagation();
+					window.open(this.href, '_blank');
+				});
 			}
 		}
 	});

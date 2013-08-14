@@ -1,0 +1,118 @@
+/*
+* @updated		XX/XXXX
+* @author		Trevor Morris / Surface
+* @project		
+* --------------------------------------------------------------------------------------------------*/
+
+/* @group Breakpoint definitions */
+body:after {
+	position: absolute; top: 0; left: 0;
+	display: none;
+	height: 0; width: 0;
+	content: 'desktop';
+}
+/* @end */
+
+@media only screen and (max-width: 960px) {}
+
+@media only screen and (max-width: 760px) {
+	body:after {
+		content: 'tablet';
+	}
+	
+	#nav ul,
+	#nav-mobile ul {
+		background: #00adee;
+	}
+	#nav li.active a,
+	#nav li.active a:hover,
+	#nav li.active a:focus,
+	#nav li.active a:active,
+	#nav-mobile li.active a,
+	#nav-mobile li.active a:hover,
+	#nav-mobile li.active a:focus,
+	#nav-mobile li.active a:active {
+		background: #0066b0;
+	}
+	#nav ul {
+		display: block;
+		min-width: 0;
+	}
+	#nav ul ul {
+		display: none !important;
+	}
+	html.js #nav ul {
+		display: none;
+	}
+	#nav,
+	#nav-mobile ul {
+		float: none;
+		display: block;
+	}
+	#nav li,
+	#nav a,
+	#nav-mobile li,
+	#nav-mobile a {
+		float: none;
+		display: block;
+	}
+	
+	#toggle-nav {
+		position: absolute; top: 0; right: 0; z-index: 1000;
+		display: block;
+		padding: 5px 10px 8px;
+		font-size: 18px; line-height: 1; color: #fff; text-decoration: none;
+	}
+	#nav-mobile,
+	#nav-background-fade {
+		position: absolute; top: 2.15em; right: 0; z-index: 1000;
+		display: none;
+		width: 100%;
+		padding: 0; margin: 0;
+	}
+	#nav-mobile {
+		max-width: 300px;
+	}
+	#nav-background-fade {
+		position: fixed; left: 0; top: 0; bottom: 0; z-index: 999;
+		height: 100%;
+		background: rgba(25, 25, 25, 0.75);
+	}
+	body.nav-shown #nav-mobile {
+		display: block;
+	}
+	body.admin-bar #nav-mobile {
+		margin-top: 28px;
+	}
+}
+
+@media only screen and (max-width: 460px) {
+	body:after {
+		content: 'mobile';
+	}
+	
+	#content-primary,
+	#content-secondary,
+	.listing li {
+		float: none;
+		display: block;
+		width: auto;
+		margin-left: 0; margin-right: 0;
+	}
+	.listing ul {
+		margin-left: 0;
+	}
+}
+
+@media only screen and (max-width: 460px) and (min-height: 478px) {
+	#header-login,
+	#toggle-nav,
+	#nav-mobile {
+		position: fixed;
+	}
+	body.admin-bar #header-login,
+	body.admin-bar #toggle-nav,
+	body.admin-bar #nav-mobile {
+		margin-top: 28px;
+	}
+}

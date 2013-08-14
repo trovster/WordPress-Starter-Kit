@@ -20,6 +20,14 @@ App = (function (App, $) {
 		homepage: {
 			initialize: function () {
 				App.model.slideshow.init().run();
+				App.model.testimonial.init().run();
+			}
+		},
+		
+		page: {
+			contact: function () {},
+			gallery: function () {
+				App.model.gallery.init().run();
 			}
 		}
 	});

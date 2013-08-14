@@ -1,40 +1,36 @@
 <?php if($wp_query->post_count > 0): ?>
-<div id="slideshow">
+<div class="listing listing-slideshow">
 	<div class="inner">
-		<ul class="images">
+		<ul>
 		<?php $i = 1; $total = $wp_query->post_count; while(have_posts()): the_post(); ?>
 			<?php
-			$class		= class_count_attr($i, $total, array());
-			$class[]	= $i === 1 ? 'active' : '';
-
-			$slideshow	= Surface_CPT_Slideshow::find_by_id(get_the_ID());
-			$class[]	= $slideshow->has_link_href() ? 'has-link' : '';
-			
-			$animations	 = 0;
-			$animations += $slideshow->has_thumbnail() ? 1 : 0;
-			$animations += $slideshow->has_thumbnail_text() ? 1 : 0;
+			$slideshow	= Classy_Slideshow::find_by_id(get_the_ID());
+			$classes	= class_count_array($i, $total);
+			$classes	= $i === 1 ? array_merge(array('active'), $classes) : $classes;
 			?>
-			<li <?php post_class(array_filter($class)); ?> data-animation-count="<?php echo $animations; ?>">
-				<?php if($slideshow->has_link_href()): ?><a href="<?php echo $slideshow->get_link_href(); ?>" rel="bookmark" class="url"><?php endif; ?>
-				
-				<?php if($slideshow->has_thumbnail()): ?>
-				<div class="photo image">
-					<?php echo $slideshow->get_thumbnail($slideshow->get_post_type() . '-image'); ?>
-				</div>
-				<?php endif; ?>
+			<li<?php $slideshow->the_attr('class', $classes) . $slideshow->the_attr('data'); ?>>
+				<?php if($slideshow->has_permalink()): ?><a href="<?php $slideshow->the_permalink(); ?>" rel="bookmark" class="url"><?php endif; ?>
 					
-				<?php if($slideshow->has_thumbnail_text()): ?>
-				<div class="photo text">
-					<?php echo $slideshow->get_thumbnail_text($slideshow->get_post_type() . '-text'); ?>
+				<div class="entry-content">
+					<div class="inner">
+						<h1 class="entry-title"><?php $slideshow->the_title(); ?></h1>
+						<div class="description">
+							<?php $slideshow->the_content(); ?>
+						</div>
+					</div>
+				</div>
+
+				<?php if($slideshow->has_thumbnail()): ?>
+				<div class="photo">
+					<?php echo $slideshow->get_thumbnail($slideshow->get_post_type()); ?>
 				</div>
 				<?php endif; ?>
-				
-				<?php if($slideshow->has_link_href()): ?></a><?php endif; ?>
+
+				<?php if($slideshow->has_permalink()): ?></a><?php endif; ?>
 			</li>
 		<?php $i++; endwhile; ?>
 		</ul>
-	<!-- end of div .inner -->
 	</div>
-	<!-- end of div #slideshow -->
+<!-- end of div .listing -->
 </div>
 <?php endif; ?>

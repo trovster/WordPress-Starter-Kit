@@ -14,7 +14,15 @@ App = (function (App, $) {
 		timeout: [],
 		autoload: [
 			{
-				model:	'_example',
+				model:	'external',
+				run:	true
+			},
+			{
+				model:	'menu',
+				run:	true
+			},
+			{
+				model:	'fixes',
 				run:	true
 			}
 		],

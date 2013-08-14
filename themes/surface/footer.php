@@ -2,13 +2,13 @@
 				</div>
 			<!-- end of div #content -->
 			</div>
+			
+			<?php echo Classy::loop(Classy_Logo::get_options(), 'loop', 'logo'); ?>
 
-			<div id="footer">
+			<div id="footer" role="contentinfo">
 				<div class="inner">
 					
-					<p>Footer</p>
-					
-					<div id="footer-by" class="vcard"><a href="http://www.who.co.uk" class="url"><?php _e('Website design and development by'); ?> <strong class="fn org">Organisation Name</strong></a></div>
+					<p>Copyright <?php echo date('Y'); ?></p>
 					
 				<!-- end of div .inner -->
 				</div>
@@ -27,20 +27,6 @@
 		yoast_analytics();
 	}
 	?>
-	
-	<!-- social media buttons -->
-	<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-
-	<div id="fb-root"></div>
-	<script type="text/javascript">
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) {return;}
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
 
 	</body>
 </html>
